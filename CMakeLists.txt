@@ -4,9 +4,9 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 
-SET(PROJECT_NAME pyCppAD)
+SET(PROJECT_NAME pycppad)
 SET(PROJECT_DESCRIPTION "Python bindings for CppAD using Boost.Python")
-SET(PROJECT_URL "https://gitlab.inria.fr/rbudhira/pyCppAD")
+SET(PROJECT_URL "https://gitlab.inria.fr/rbudhira/pycppad")
 
 # Project options
 OPTION(SUFFIX_SO_VERSION "Suffix library name with its version" ON)
@@ -41,9 +41,14 @@ EXPORT_BOOST_DEFAULT_OPTIONS()
 
 SET(${PROJECT_NAME}_HEADERS
   include/${PROJECT_NAME}/fwd.hpp
+  include/${PROJECT_NAME}/user-type.hpp
+  include/${PROJECT_NAME}/numpy-type.hpp
+  include/${PROJECT_NAME}/register.hpp
+  include/${PROJECT_NAME}/scalar-conversion.hpp
   )
 
-SET(${PROJECT_NAME}_SOURCES  
+SET(${PROJECT_NAME}_SOURCES
+  src/register.cpp
   )
 
 ADD_LIBRARY(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_SOURCES} ${${PROJECT_NAME}_HEADERS})
