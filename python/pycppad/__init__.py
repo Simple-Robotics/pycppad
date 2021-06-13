@@ -3,4 +3,4 @@
 #
 
 from .pycppad import *
-from .pycppad import __version__, __raw_version__
+#from .pycppad import __version__, __raw_version__
