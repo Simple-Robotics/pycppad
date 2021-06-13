@@ -77,7 +77,7 @@ namespace pycppad
     static std::string print(const AD& self)
     {
       std::stringstream ss;
-      ss <<"CppAD(" << self <<")"<< std::endl;
+      ss <<"CppAD(" << self <<")";
       return ss.str();
     }
     
@@ -91,7 +91,7 @@ namespace pycppad
     static void expose()
     {
       bp::class_<AD>("AD",
-		     "AD type corresponding the scalar (typically double).\n\n",
+		     "AD type corresponding to the scalar.\n\n",
 		     bp::init<Scalar>(bp::arg("value")))
 	.def(ADVisitor<Scalar>());
 
@@ -99,8 +99,8 @@ namespace pycppad
 	      bp::arg("x"),
 	      "Conversion from AD to Base type");
 
-      //int code = registerNewType<AD>();
-      //std::cout<<"code:"<<code<<std::endl;
+      int code = registerNewType<AD>();
+      std::cout<<"code:"<<code<<std::endl;
     }
   };
 }
