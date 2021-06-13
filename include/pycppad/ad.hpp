@@ -64,20 +64,43 @@ namespace pycppad
 	.def("atanh_me", &AD::atanh_me, bp::arg("self"))
 	//.def("erf_me"(bool complemnet) const;
 	.def("expm1_me", &AD::expm1_me, bp::arg("self"))
-	.def("log1p_me", &AD::log1p_me, bp::arg("self"));
-      
-
-      
-
+	.def("log1p_me", &AD::log1p_me, bp::arg("self"))
+	.def("__str__",&print)
+	.def("__repr__",&print)
+	.def("Value", &Value, bp::arg("self"))
+	;
     }
     
+  private:
+    
+    static std::string print(const AD& self)
+    {
+      std::stringstream ss;
+      ss <<"CppAD(" << self <<")"<< std::endl;
+      return ss.str();
+    }
+    
+    static Scalar Value(const AD& self)
+    {
+      return CppAD::Value<Scalar> (self);
+    }    
+
+
+  public:
     static void expose()
     {
       bp::class_<AD>("AD",
 		     "AD type corresponding the scalar (typically double).\n\n",
 		     bp::init<Scalar>(bp::arg("value")))
 	.def(ADVisitor<Scalar>());
+
+      bp::def("Value",&Value,
+	      bp::arg("x"),
+	      "Conversion from AD to Base type");
     }
+
+    
+    
   };
 }
 #endif //#ifndef __pycppad_ad_expose_hpp__

@@ -1,3 +1,8 @@
-import pycppad
+from pycppad import AD, Value
 
-x = pycppad.AD(2)
+
+x = AD(2)
+
+print(x)
+print(x.Value())
+print(Value(x))
