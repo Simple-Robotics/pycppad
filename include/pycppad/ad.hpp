@@ -6,8 +6,9 @@
 #define __pycppad_ad_expose_hpp__
 
 #include "pycppad/fwd.hpp"
+#include "pycppad/user-type.hpp"
 #include <cppad/cppad.hpp>
-#include <cppad/core/ad.hpp>
+//#include <cppad/core/ad.hpp>
 
 namespace pycppad
 {
@@ -62,7 +63,7 @@ namespace pycppad
 	.def("asinh_me", &AD::asinh_me, bp::arg("self"))
 	.def("acosh_me", &AD::acosh_me, bp::arg("self"))
 	.def("atanh_me", &AD::atanh_me, bp::arg("self"))
-	//.def("erf_me"(bool complemnet) const;
+	.def("erf_me", &AD::erf_me, bp::args("self", "complement"), "self, bool")
 	.def("expm1_me", &AD::expm1_me, bp::arg("self"))
 	.def("log1p_me", &AD::log1p_me, bp::arg("self"))
 	.def("__str__",&print)
@@ -97,10 +98,10 @@ namespace pycppad
       bp::def("Value",&Value,
 	      bp::arg("x"),
 	      "Conversion from AD to Base type");
-    }
 
-    
-    
+      //int code = registerNewType<AD>();
+      //std::cout<<"code:"<<code<<std::endl;
+    }
   };
 }
 #endif //#ifndef __pycppad_ad_expose_hpp__
