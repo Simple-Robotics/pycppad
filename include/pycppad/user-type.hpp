@@ -6,6 +6,7 @@
 #define __pycppad_user_type_hpp__
 
 #include "pycppad/fwd.hpp"
+
 #include "pycppad/numpy-type.hpp"
 #include "pycppad/register.hpp"
 
