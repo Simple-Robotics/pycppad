@@ -51,6 +51,7 @@ SET(${PROJECT_NAME}_HEADERS
   include/${PROJECT_NAME}/register.hpp
   include/${PROJECT_NAME}/scalar-conversion.hpp
   include/${PROJECT_NAME}/exception.hpp
+  include/${PROJECT_NAME}/ufunc.hpp
   include/${PROJECT_NAME}/ad.hpp
   )
 
