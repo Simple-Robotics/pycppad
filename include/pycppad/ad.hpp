@@ -6,8 +6,8 @@
 #define __pycppad_ad_expose_hpp__
 
 #include "pycppad/fwd.hpp"
-#include "pycppad/user-type.hpp"
-#include "pycppad/ufunc.hpp"
+//#include "pycppad/user-type.hpp"
+//##include "pycppad/ufunc.hpp"
 #include <cppad/cppad.hpp>
 //#include <cppad/core/ad.hpp>
 

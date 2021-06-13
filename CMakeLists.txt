@@ -46,18 +46,19 @@ ADD_PROJECT_DEPENDENCY(cppad 20180000.0 REQUIRED PKG_CONFIG_REQUIRES "cppad >= 2
 
 SET(${PROJECT_NAME}_HEADERS
   include/${PROJECT_NAME}/fwd.hpp
-  include/${PROJECT_NAME}/user-type.hpp
-  include/${PROJECT_NAME}/numpy-type.hpp
-  include/${PROJECT_NAME}/register.hpp
-  include/${PROJECT_NAME}/scalar-conversion.hpp
-  include/${PROJECT_NAME}/exception.hpp
-  include/${PROJECT_NAME}/ufunc.hpp
+  #include/${PROJECT_NAME}/user-type.hpp
+  #include/${PROJECT_NAME}/numpy-type.hpp
+  #include/${PROJECT_NAME}/register.hpp
+  #include/${PROJECT_NAME}/scalar-conversion.hpp
+  #include/${PROJECT_NAME}/exception.hpp
+  #include/${PROJECT_NAME}/ufunc.hpp
   include/${PROJECT_NAME}/ad.hpp
   )
 
 SET(${PROJECT_NAME}_SOURCES
-  src/register.cpp
-  src/numpy.cpp
+  #src/register.cpp
+  #src/numpy.cpp
+  src/ad.cpp
   )
 
 ADD_LIBRARY(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_SOURCES} ${${PROJECT_NAME}_HEADERS})
@@ -69,7 +70,8 @@ ENDIF(SUFFIX_SO_VERSION)
 TARGET_LINK_BOOST_PYTHON(${PROJECT_NAME} PUBLIC)
 
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} 
-  SYSTEM PUBLIC 
+  SYSTEM PUBLIC
+  ${cppad_INCLUDE_DIR}
   ${Boost_INCLUDE_DIRS} 
   ${PYTHON_INCLUDE_DIRS} 
   ${NUMPY_INCLUDE_DIRS}
