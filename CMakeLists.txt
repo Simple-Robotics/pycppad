@@ -46,18 +46,10 @@ ADD_PROJECT_DEPENDENCY(cppad 20180000.0 REQUIRED PKG_CONFIG_REQUIRES "cppad >= 2
 
 SET(${PROJECT_NAME}_HEADERS
   include/${PROJECT_NAME}/fwd.hpp
-  #include/${PROJECT_NAME}/user-type.hpp
-  #include/${PROJECT_NAME}/numpy-type.hpp
-  #include/${PROJECT_NAME}/register.hpp
-  #include/${PROJECT_NAME}/scalar-conversion.hpp
-  #include/${PROJECT_NAME}/exception.hpp
-  #include/${PROJECT_NAME}/ufunc.hpp
   include/${PROJECT_NAME}/ad.hpp
   )
 
 SET(${PROJECT_NAME}_SOURCES
-  #src/register.cpp
-  #src/numpy.cpp
   src/ad.cpp
   )
 

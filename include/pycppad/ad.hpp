@@ -43,9 +43,6 @@ namespace pycppad
 #pragma GCC diagnostic pop
 #endif
 	.def(bp::self *= bp::self)
-	//.def("Value",&AD::template Value<Scalar>,
-	//     bp::arg("self"),
-	//    "conversion from AD to Base type.")
 	.def("abs_me", &AD::abs_me, bp::arg("self"))
 	.def("acos_me", &AD::acos_me, bp::arg("self"))
 	.def("asin_me", &AD::asin_me, bp::arg("self"))
@@ -69,7 +66,6 @@ namespace pycppad
 	.def("log1p_me", &AD::log1p_me, bp::arg("self"))
 	.def("__str__",&print)
 	.def("__repr__",&print)
-	.def("Value", &Value, bp::arg("self"))
 	;
     }
     
@@ -81,11 +77,6 @@ namespace pycppad
       ss <<"CppAD(" << self <<")";
       return ss.str();
     }
-    
-    static Scalar Value(const AD& self)
-    {
-      return CppAD::Value<Scalar> (self);
-    }    
 
 
   public:
@@ -96,7 +87,7 @@ namespace pycppad
 		     bp::init<Scalar>(bp::arg("value")))
 	.def(ADVisitor<Scalar>());
 
-      bp::def("Value",&Value,
+      bp::def("Value",&::CppAD::Value<Scalar>,
 	      bp::arg("x"),
 	      "Conversion from AD to Base type");
 
