@@ -7,4 +7,5 @@
 namespace pycppad
 {
   template class   ADVisitor<double>;
+  template class   ADVisitor<float>;
 } // namespace pycppad

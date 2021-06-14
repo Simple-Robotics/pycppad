@@ -1,0 +1,5 @@
+Independent()
+
+template 
+struct VectorType {
+}

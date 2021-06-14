@@ -13,12 +13,12 @@ namespace pycppad
   // void exposeMatrixBool();
   // void exposeMatrixInt();
   // void exposeMatrixLong();
-  // void exposeMatrixFloat();
+  void exposeMatrixFloat();
   void exposeMatrixDouble();
   // void exposeMatrixLongDouble();
 
   // void exposeMatrixComplexFloat();
-  void exposeMatrixComplexDouble();
+  //void exposeMatrixComplexDouble();
   // void exposeMatrixComplexLongDouble();
 
   void enablePyCppAD();

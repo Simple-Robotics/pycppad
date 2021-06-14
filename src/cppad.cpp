@@ -13,7 +13,7 @@ namespace pycppad
   {
     
     exposeMatrixDouble();    
-    exposeMatrixComplexDouble();
+    exposeMatrixFloat();
     
   }
 }

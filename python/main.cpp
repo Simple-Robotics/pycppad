@@ -14,8 +14,8 @@ BOOST_PYTHON_MODULE(pycppad)
 {
   namespace bp = boost::python;
 
-  typedef double Scalar;
-  typedef CppAD::AD<Scalar> ADScalar;
+  //typedef double Scalar;
+  //typedef CppAD::AD<Scalar> ADScalar;
   enum { Options = 0 };
   
   eigenpy::enableEigenPy();
@@ -27,14 +27,9 @@ BOOST_PYTHON_MODULE(pycppad)
   //bp::def("checkVersionAtLeast",&eigenpy::checkVersionAtLeast,
   //        bp::args("major_version","minor_version","patch_version"),
   //        "Checks if the current version of EigenPy is at least the version provided by the input arguments.");
-  pycppad::ADVisitor<double>::expose();
+
   
   pycppad::enablePyCppAD();
-
-
-  
-  //pycppad::ADVisitor<Eigen::Matrix<Scalar,Eigen::Dynamic,1,Options> >::expose();
-  pycppad::IndependentVisitor<Eigen::Matrix<ADScalar,Eigen::Dynamic,1,Options> >::expose();
 
   
   

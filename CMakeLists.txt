@@ -55,7 +55,7 @@ SET(${PROJECT_NAME}_HEADERS
 
 SET(${PROJECT_NAME}_SOURCES
   src/ad.cpp
-  src/cppad-complex-double.cpp
+  src/cppad-float.cpp
   src/cppad-double.cpp
   src/cppad.cpp
   )
