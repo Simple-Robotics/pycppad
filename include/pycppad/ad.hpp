@@ -6,8 +6,8 @@
 #define __pycppad_ad_expose_hpp__
 
 #include "pycppad/fwd.hpp"
-//#include "pycppad/user-type.hpp"
-//##include "pycppad/ufunc.hpp"
+#include "eigenpy/user-type.hpp"
+#include "eigenpy/ufunc.hpp"
 #include <cppad/cppad.hpp>
 //#include <cppad/core/ad.hpp>
 
@@ -91,9 +91,8 @@ namespace pycppad
 	      bp::arg("x"),
 	      "Conversion from AD to Base type");
 
-      //int code = registerNewType<AD>();
-      //std::cout<<"code:"<<code<<std::endl;
-      //registerCommonUfunc<AD>();
+      eigenpy::registerNewType<AD>();
+      eigenpy::registerCommonUfunc<AD>();
     }
   };
 }

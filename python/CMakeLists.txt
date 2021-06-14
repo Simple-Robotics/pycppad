@@ -14,7 +14,7 @@ SET_TARGET_PROPERTIES(python PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD True)
 ADD_LIBRARY(${PYWRAP} SHARED main.cpp)
 ADD_DEPENDENCIES(python ${PYWRAP})
 TARGET_INCLUDE_DIRECTORIES(${PYWRAP} SYSTEM PUBLIC ${cppad_INCLUDE_DIR})
-TARGET_LINK_LIBRARIES(${PYWRAP} PUBLIC ${PROJECT_NAME} ${cppad_LIBRARY})
+TARGET_LINK_LIBRARIES(${PYWRAP} PUBLIC ${PROJECT_NAME} ${cppad_LIBRARY} eigenpy::eigenpy)
 TARGET_LINK_BOOST_PYTHON(${PYWRAP} PUBLIC)
 # BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS spews conversion warnings from int to long unsigned int.
 # Unfortunately, using literals does not work in a macro. As such, this turns them off for the entire wrapper:

@@ -1,8 +1,7 @@
-from pycppad import AD, Value
+from pycppad import AD, Value, Independent
 x = AD(2)
 
 print(x)
-print(x.Value())
 print(Value(x))
 
 y = AD(3)
@@ -19,8 +18,11 @@ print(z4)
 
 import numpy as np
 dAD = np.dtype(AD)
+
 x = np.array([AD(1), AD(2)], dtype=dAD)
 y = np.array([AD(3), AD(4)], dtype=dAD)
+
+Independent(x)
 
 z = x+y
 print(z)
