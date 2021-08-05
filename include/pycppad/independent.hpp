@@ -6,10 +6,7 @@
 #define __pycppad_independent_expose_hpp__
 
 #include "pycppad/fwd.hpp"
-//#include "pycppad/user-type.hpp"
-//##include "pycppad/ufunc.hpp"
 #include <cppad/core/independent/independent.hpp>
-//#include <cppad/core/ad.hpp>
 
 namespace pycppad
 {
@@ -24,11 +21,8 @@ namespace pycppad
     void visit(PyClass&) const
     { }
     
-
   public:
     
-
-
     static void Independent3(const ADVector &x_,
 			     const size_t abort_op_index_,
 			     const bool record_compare_)

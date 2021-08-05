@@ -10,10 +10,8 @@
 namespace pycppad
 {
   void enablePyCppAD()
-  {
-    
+  {    
     exposeMatrixDouble();    
-    exposeMatrixFloat();
-    
+    exposeMatrixFloat(); 
   }
 }

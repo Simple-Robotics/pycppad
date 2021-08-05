@@ -9,11 +9,9 @@
 #include "eigenpy/user-type.hpp"
 #include "eigenpy/ufunc.hpp"
 #include <cppad/cppad.hpp>
-//#include <cppad/core/ad.hpp>
 
 namespace pycppad
 {
-  
   namespace bp = boost::python;
  
   template<typename Scalar>

@@ -20,8 +20,8 @@ namespace pycppad
     eigenpy::exposeType<ADScalar>();
     eigenpy::exposeType<ADScalar,Eigen::RowMajor>();
 
-    pycppad::ADVisitor<Scalar>::expose();
     pycppad::IndependentVisitor< Eigen::Matrix<ADScalar,Eigen::Dynamic,1,Options> >::expose();
+    pycppad::IndependentVisitor< Eigen::Matrix<ADScalar,2,1,Options> >::expose();
     //pycppad::IndependentVisitor<Eigen::Matrix<ADScalar,Eigen::Dynamic,1,Eigen::RowMajor> >::expose();
     
   }
