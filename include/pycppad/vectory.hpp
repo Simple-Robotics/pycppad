@@ -1,5 +1,0 @@
-Independent()
-
-template 
-struct VectorType {
-}
