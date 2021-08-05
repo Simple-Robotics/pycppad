@@ -1,6 +1,5 @@
 /*
- * Copyright 2014-2019, CNRS
- * Copyright 2018-2021, INRIA
+ * Copyright 2021, INRIA
  */
 
 #ifndef __pycppad_cppad_hpp__
