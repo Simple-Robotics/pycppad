@@ -26,43 +26,59 @@ namespace pycppad
     
 
   public:
+    
+
+
+    static void Independent3(const ADVector &x_,
+			     const size_t abort_op_index_,
+			     const bool record_compare_)
+    {
+      ADVector& x = const_cast<ADVector&>(x_);
+      size_t abort_op_index = abort_op_index_;
+      bool record_compare = record_compare_;
+      ::CppAD::Independent(x, abort_op_index, record_compare);
+      return;
+    }
+
+    static void Independent2(const ADVector &x_, const size_t abort_op_index_)
+    {
+      ADVector& x = const_cast<ADVector&>(x_);
+      size_t abort_op_index = abort_op_index_;
+      ::CppAD::Independent(x, abort_op_index);
+      return;
+    }
+
+    static void Independent1(const ADVector &x_)
+    {
+      ADVector& x = const_cast<ADVector&>(x_);
+      ::CppAD::Independent(x);
+      return;
+    }
+
     static void expose()
     {
-      bp::def<void (*)(ADVector &, size_t, bool)>(
-	     "Independent",
-	     &::CppAD::Independent<ADVector>,
-	     bp::args("x", "abort_op_index", "record_compare"),
-	     "define a variable as Independent."
-	     "Parameters:\n"
-	     "\tx: variable\n"
-	     "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
-	     "\trecord_compare: should comparison operators be recorded.\n"
-						  );
-
-      bp::def<void (*)(ADVector &, size_t)>(
-	     "Independent",
-	     &::CppAD::Independent<ADVector>,
-	     bp::args("x", "abort_op_index"),
-	     "define a variable as Independent."
-	     "Parameters:\n"
-	     "\tx: variable\n"
-	     "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
-					    );
+      bp::def("Independent",&::pycppad::IndependentVisitor<ADVector>::Independent3,
+	      bp::args("x", "abort_op_index", "record_compare"),
+	      "define a variable as Independent."
+	      "Parameters:\n"
+	      "\tx: variable\n"
+	      "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
+	      "\trecord_compare: should comparison operators be recorded.\n"
+	      );
+      bp::def("Independent",&::pycppad::IndependentVisitor<ADVector>::Independent2,
+	      bp::args("x", "abort_op_index"),
+	      "define a variable as Independent."
+	      "Parameters:\n"
+	      "\tx: variable\n"
+	      "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
+	      );
       
-      bp::def<void (*)(ADVector &)>(
-	     "Independent",
-	     &::CppAD::Independent<ADVector>,
-	     bp::args("x"),
-	     "define a variable as Independent."
-	     "Parameters:\n"
-	     "\tx: variable\n"
-						  );
-      
-
-      
-      //int code = registerNewType<AD>();
-      //std::cout<<"code:"<<code<<std::endl;
-      //registerCommonUfunc<AD>();
+      bp::def("Independent",&::pycppad::IndependentVisitor<ADVector>::Independent1,
+	      bp::args("x"),
+	      "define a variable as Independent."
+	      "Parameters:\n"
+	      "\tx: variable\n"
+	      );      
     }
   };
 }
