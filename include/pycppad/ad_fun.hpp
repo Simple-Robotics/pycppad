@@ -16,6 +16,7 @@ namespace pycppad
   class ADFunVisitor
   :  public bp::def_visitor< ADFunVisitor<Scalar> >
   {
+
     typedef ::CppAD::ADFun<Scalar> ADFun;
   public:
     
@@ -23,33 +24,21 @@ namespace pycppad
     void visit(PyClass& cl) const
     {
       cl
+	.def("swap", &ADFun::swap, bp::args("self", "f"))
+	.def("from_json", &ADFun::from_json, bp::args("self", "json"))
+	//.def("to_json", &ADFun::to_json, bp::arg("self"))
+	;
     }
     
   private:
-    
-    static std::string print(const AD& self)
-    {
-      std::stringstream ss;
-      ss <<"CppAD(" << self <<")";
-      return ss.str();
-    }
-    
-    static Scalar Value(const AD& self)
-    {
-      return CppAD::Value<Scalar> (self);
-    }
 
   public:
     static void expose()
     {
-      bp::class_<AD>("AD",
-		     "AD type corresponding to the scalar.\n\n",
-		     bp::init<Scalar>(bp::arg("value")))
-	.def(ADVisitor<Scalar>());
-
-      bp::def("Value",&Value,
-	      bp::arg("x"),
-	      "Conversion from AD to Base type");
+      bp::class_<ADFun, boost::noncopyable>("ADFun",
+			"Class used to hold function objects.\n\n",
+			bp::init<>())
+	.def(ADFunVisitor<Scalar>());
 
     }
   };
