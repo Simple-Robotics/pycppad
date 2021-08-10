@@ -28,13 +28,13 @@ namespace pycppad
       cl
 	.def("swap", &ADFun::swap, bp::args("self", "f"))
 	.def("from_json", &ADFun::from_json, bp::args("self", "json"))
-	.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
+	//.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
 	.def("to_json", &ADFun::to_json, bp::arg("self"))
 	.def("Dependent", (void (ADFun::*)(const ADVector &, const ADVector &))(&ADFun::Dependent),
 	     bp::args("self", "x", "y"))
 	.def("Forward", (Vector (ADFun::*)(size_t , size_t, const Vector&))(&ADFun::Forward),
 	     bp::args("self", "q", "r", "x"))
-	.def("Forward", (Vector (ADFun::*)(size_t, const Vector&))(&ADFun::Forward),
+	.def("Forward", (Vector (ADFun::*)(size_t, const Vector&, std::ostream&))(&ADFun::Forward),
 	     bp::args("self", "q", "xq"))
 	.def("Reverse", (Vector (ADFun::*)(size_t, const Vector&))(&ADFun::Reverse),
 	     bp::args("self", "p", "v"))
