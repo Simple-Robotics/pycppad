@@ -9,16 +9,8 @@
 namespace pycppad
 {
 
-  // void exposeMatrixBool();
-  // void exposeMatrixInt();
-  // void exposeMatrixLong();
-  void exposeMatrixFloat();
-  void exposeMatrixDouble();
-  // void exposeMatrixLongDouble();
-
-  // void exposeMatrixComplexFloat();
-  //void exposeMatrixComplexDouble();
-  // void exposeMatrixComplexLongDouble();
+  template<typename Scalar>
+  void exposeCppADScalar();
 
   void enablePyCppAD();
 }

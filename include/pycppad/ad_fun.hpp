@@ -18,6 +18,7 @@ namespace pycppad
   {
 
     typedef ::CppAD::ADFun<Scalar> ADFun;
+    typedef Eigen::Matrix<::CppAD::AD<Scalar>, Eigen::Dynamic, 1> ADVector;
   public:
     
     template<class PyClass>
@@ -26,6 +27,8 @@ namespace pycppad
       cl
 	.def("swap", &ADFun::swap, bp::args("self", "f"))
 	.def("from_json", &ADFun::from_json, bp::args("self", "json"))
+	.def("Dependent", (void (ADFun::*)(const ADVector &, const ADVector &))(&ADFun::Dependent),
+	     bp::args("self", "x", "y"));
 	//.def("to_json", &ADFun::to_json, bp::arg("self"))
 	;
     }

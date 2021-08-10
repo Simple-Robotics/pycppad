@@ -50,13 +50,12 @@ SET(${PROJECT_NAME}_HEADERS
   include/${PROJECT_NAME}/fwd.hpp
   include/${PROJECT_NAME}/ad.hpp
   include/${PROJECT_NAME}/independent.hpp
+  include/${PROJECT_NAME}/ad_fun.hpp
   include/${PROJECT_NAME}/cppad.hpp
   )
 
 SET(${PROJECT_NAME}_SOURCES
-  src/ad.cpp
-  src/cppad-float.cpp
-  src/cppad-double.cpp
+  src/cppad-scalar.cpp
   src/cppad.cpp
   )
 
