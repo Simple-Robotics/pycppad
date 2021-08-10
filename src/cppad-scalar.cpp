@@ -11,20 +11,19 @@
 
 namespace pycppad
 {
-  void exposeMatrixDouble()
+  template<typename Scalar>
+  void exposeCppADScalar()
   {
-    typedef double Scalar;
     typedef ::CppAD::AD<Scalar> ADScalar;
     enum { Options = 0 };
     
     eigenpy::exposeType<ADScalar>();
     eigenpy::exposeType<ADScalar,Eigen::RowMajor>();
     pycppad::ADVisitor<Scalar>::expose();
+    pycppad::ADFunVisitor<Scalar>::expose();
     pycppad::IndependentVisitor<Eigen::Matrix<ADScalar,Eigen::Dynamic,1,Options> >::expose();
     pycppad::IndependentVisitor<Eigen::Matrix<ADScalar,2,1,Options> >::expose();
-    pycppad::ADFunVisitor<ADScalar>::expose();
     //pycppad::IndependentVisitor<Eigen::Matrix<ADScalar,Eigen::Dynamic,1,Eigen::RowMajor> >::expose();
-    
     
   }
 }
