@@ -52,10 +52,10 @@ SET(${PROJECT_NAME}_HEADERS
   include/${PROJECT_NAME}/independent.hpp
   include/${PROJECT_NAME}/ad_fun.hpp
   include/${PROJECT_NAME}/cppad.hpp
+  include/${PROJECT_NAME}/cppad-scalar.hpp
   )
 
 SET(${PROJECT_NAME}_SOURCES
-  src/cppad-scalar.cpp
   src/cppad.cpp
   )
 
