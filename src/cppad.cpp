@@ -8,9 +8,10 @@
 
 namespace pycppad
 {
+  
   void enablePyCppAD()
   {
     exposeCppADScalar<double>();
-    exposeCppADScalar<float>();
+    //exposeCppADScalar<float>();
   }
 }
