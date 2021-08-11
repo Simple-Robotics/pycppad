@@ -52,28 +52,29 @@ namespace pycppad
 
     static void expose()
     {
-      bp::def("Independent",&::pycppad::IndependentVisitor<ADVector>::Independent3,
-	      bp::args("x", "abort_op_index", "record_compare"),
-	      "define a variable as Independent."
-	      "Parameters:\n"
-	      "\tx: variable\n"
-	      "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
-	      "\trecord_compare: should comparison operators be recorded.\n"
-	      );
-      bp::def("Independent",&::pycppad::IndependentVisitor<ADVector>::Independent2,
-	      bp::args("x", "abort_op_index"),
-	      "define a variable as Independent."
-	      "Parameters:\n"
-	      "\tx: variable\n"
-	      "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
-	      );
+      bp::def("Independent",&Independent3,
+              bp::args("x", "abort_op_index", "record_compare"),
+              "define a variable as Independent."
+              "Parameters:\n"
+              "\tx: variable\n"
+              "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
+              "\trecord_compare: should comparison operators be recorded.\n"
+              );
       
-      bp::def("Independent",&::pycppad::IndependentVisitor<ADVector>::Independent1,
-	      bp::args("x"),
-	      "define a variable as Independent."
-	      "Parameters:\n"
-	      "\tx: variable\n"
-	      );      
+      bp::def("Independent",&Independent2,
+              bp::args("x", "abort_op_index"),
+              "define a variable as Independent."
+              "Parameters:\n"
+              "\tx: variable\n"
+              "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
+              );
+
+      bp::def("Independent",&Independent1,
+              bp::args("x"),
+              "define a variable as Independent."
+              "Parameters:\n"
+              "\tx: variable\n"
+              );
     }
   };
 }
