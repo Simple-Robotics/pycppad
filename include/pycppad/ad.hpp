@@ -71,21 +71,36 @@ namespace pycppad
     
   private:
     
-    static std::string print(const AD& self)
+    static std::string print(const AD & self)
     {
       std::stringstream ss;
-      ss <<"CppAD(" << self <<")";
+      ss << get_class_name() << "(" << self <<")";
       return ss.str();
     }
 
+  protected:
+    
+    static std::string & get_class_name()
+    {
+      static std::string class_name;
+      return class_name;
+    }
+    
+    static void set_class_name(const std::string & class_name)
+    {
+      get_class_name() = class_name;
+    }
 
   public:
-    static void expose()
+    
+    
+    static void expose(const std::string & class_name = "AD")
     {
-      bp::class_<AD>("AD",
-		     "AD type corresponding to the scalar.\n\n",
-	.def(ADVisitor<Scalar>());
+      set_class_name(class_name);
+      bp::class_<AD>(class_name.c_str(),
+                     std::string("AD type corresponding to the scalar type ").append(typeid(Scalar).name()).c_str(),
                      bp::no_init)
+      .def(ADVisitor<Scalar>());
 
       bp::def("Value",&::CppAD::Value<Scalar>,
 	      bp::arg("x"),
