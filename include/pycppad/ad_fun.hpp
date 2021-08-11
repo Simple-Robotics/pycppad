@@ -30,7 +30,10 @@ namespace pycppad
     template<class PyClass>
     void visit(PyClass& cl) const
     {
+      
       cl
+      .def("__init__",
+           bp::make_constructor(&constructor,bp::default_call_policies(),bp::args("x","y")))
 	.def("swap", &ADFun::swap, bp::args("self", "f"))
 	.def("from_json", &ADFun::from_json, bp::args("self", "json"))
 	//.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
@@ -56,6 +59,7 @@ namespace pycppad
     }
     
   private:
+    
     static void Dependent(ADFun & self, RefADVector x, RefADVector y)
     {
       ADVector x_(x),y_(y);
@@ -63,6 +67,11 @@ namespace pycppad
       x = x_; y = y_;
     }
     
+    static ADFun* constructor(const ADVector & x, const ADVector & y)
+    {
+      ADFun * f = new ADFun(x,y);
+      return f;
+    }
 
   public:
     static void expose()
