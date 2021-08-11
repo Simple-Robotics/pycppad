@@ -68,7 +68,7 @@ namespace pycppad
       .def("__repr__",&print)
       
       .def("__float__",&::CppAD::Value<Scalar>)
-      .def("__int__",&::CppAD::Value<Scalar>)
+      .def("__int__",&__int__)
       ;
     }
     
@@ -79,6 +79,11 @@ namespace pycppad
       std::stringstream ss;
       ss << get_class_name() << "(" << self <<")";
       return ss.str();
+    }
+    
+    static int64_t __int__(const AD & self)
+    {
+      return static_cast<int>(::CppAD::Value<Scalar>(self));
     }
 
   protected:
