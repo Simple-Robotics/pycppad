@@ -34,29 +34,29 @@ namespace pycppad
       cl
       .def("__init__",
            bp::make_constructor(&constructor,bp::default_call_policies(),bp::args("x","y")))
-	.def("swap", &ADFun::swap, bp::args("self", "f"))
-	.def("from_json", &ADFun::from_json, bp::args("self", "json"))
-	//.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
-	.def("to_json", &ADFun::to_json, bp::arg("self"))
-  .def("size_order", &ADFun::size_order, bp::arg("self"))
-	.def("Dependent",&Dependent,
-	     bp::args("self", "x", "y"))
-	.def("Forward", (Vector (ADFun::*)(size_t , size_t, const Vector&))(&ADFun::Forward),
-	     bp::args("self", "q", "r", "x"))
-	.def("Forward", &Forward_multiple,
-	     bp::args("self", "q", "xq"))
-	.def("Reverse", (Vector (ADFun::*)(size_t, const Vector&))(&ADFun::Reverse),
-	     bp::args("self", "p", "v"))
-	.def("Reverse", (Vector (ADFun::*)(size_t, const Vector&))(&ADFun::Reverse),
-	     bp::args("self", "p", "v"))
-	.def("Hessian", (Vector (ADFun::*)(const Vector&,const Vector&))(&ADFun::Hessian),
-	     bp::args("self", "x", "w"))
-	.def("Hessian", (Vector (ADFun::*)(const Vector&, size_t))(&ADFun::Hessian),
-	     bp::args("self", "x", "i"))
-	.def("Jacobian", (Vector (ADFun::*)(const Vector&))(&ADFun::Jacobian),
-	     bp::args("self", "x"))
-	.def("optimize", &ADFun::optimize, bp::args("self", "options"))
-	;
+      .def("swap", &ADFun::swap, bp::args("self", "f"))
+      .def("from_json", &ADFun::from_json, bp::args("self", "json"))
+      //.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
+      .def("to_json", &ADFun::to_json, bp::arg("self"))
+      .def("size_order", &ADFun::size_order, bp::arg("self"))
+      .def("Dependent",&Dependent,
+           bp::args("self", "x", "y"))
+      .def("Forward", (Vector (ADFun::*)(size_t , size_t, const Vector&))(&ADFun::Forward),
+           bp::args("self", "q", "r", "x"))
+      .def("Forward", &Forward_multiple,
+           bp::args("self", "q", "xq"))
+      .def("Reverse", (Vector (ADFun::*)(size_t, const Vector&))(&ADFun::Reverse),
+           bp::args("self", "p", "v"))
+      .def("Reverse", (Vector (ADFun::*)(size_t, const Vector&))(&ADFun::Reverse),
+           bp::args("self", "p", "v"))
+      .def("Hessian", (Vector (ADFun::*)(const Vector&,const Vector&))(&ADFun::Hessian),
+           bp::args("self", "x", "w"))
+      .def("Hessian", (Vector (ADFun::*)(const Vector&, size_t))(&ADFun::Hessian),
+           bp::args("self", "x", "i"))
+      .def("Jacobian", (Vector (ADFun::*)(const Vector&))(&ADFun::Jacobian),
+           bp::args("self", "x"))
+      .def("optimize", &ADFun::optimize, bp::args("self", "options"))
+      ;
     }
     
   private:
@@ -80,7 +80,7 @@ namespace pycppad
       bp::class_<ADFun, boost::noncopyable>("ADFun",
 			"Class used to hold function objects.\n\n",
 			bp::init<>())
-	.def(ADFunVisitor<Scalar>());
+      .def(ADFunVisitor<Scalar>());
 
     }
   };
