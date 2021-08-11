@@ -27,9 +27,9 @@ namespace pycppad
     
   public:
     
-    static void Independent3(RefADVector x,
-                             const size_t abort_op_index_,
-                             const bool record_compare_)
+    static void Independent(RefADVector x,
+                            const size_t abort_op_index_,
+                            const bool record_compare_)
     {
       ADVector x_(x), dynamic(0);
       size_t abort_op_index = abort_op_index_;
@@ -39,41 +39,15 @@ namespace pycppad
       return;
     }
 
-    static void Independent2(RefADVector x,
-                             const size_t abort_op_index_)
-    {
-      Independent3(x,abort_op_index_,true);
-    }
-
-    static void Independent1(RefADVector x)
-    {
-      Independent3(x,0,true);
-    }
-
     static void expose()
     {
-      bp::def("Independent",&Independent3,
-              bp::args("x", "abort_op_index", "record_compare"),
+      bp::def("Independent",&Independent,
+              (bp::arg("x"), bp::arg("abort_op_index") = 0, bp::arg("record_compare") = true),
               "define a variable as Independent."
               "Parameters:\n"
               "\tx: variable\n"
               "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
               "\trecord_compare: should comparison operators be recorded.\n"
-              );
-      
-      bp::def("Independent",&Independent2,
-              bp::args("x", "abort_op_index"),
-              "define a variable as Independent."
-              "Parameters:\n"
-              "\tx: variable\n"
-              "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
-              );
-
-      bp::def("Independent",&Independent1,
-              bp::args("x"),
-              "define a variable as Independent."
-              "Parameters:\n"
-              "\tx: variable\n"
               );
     }
   };
