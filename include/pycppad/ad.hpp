@@ -66,6 +66,9 @@ namespace pycppad
       .def("log1p_me", &AD::log1p_me, bp::arg("self"))
       .def("__str__",&print)
       .def("__repr__",&print)
+      
+      .def("__float__",&::CppAD::Value<Scalar>)
+      .def("__int__",&::CppAD::Value<Scalar>)
       ;
     }
     
