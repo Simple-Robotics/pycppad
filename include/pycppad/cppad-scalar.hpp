@@ -10,7 +10,6 @@
 #include "pycppad/ad_fun.hpp"
 
 #include <eigenpy/eigenpy.hpp>
-#include <cppad/cppad.hpp>
 
 
 #define PYCPPAD_MAKE_VECTOR_TYPEDEFS(Type, TypeSuffix, Size, SizeSuffix) \

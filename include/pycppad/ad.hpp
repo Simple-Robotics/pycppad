@@ -8,7 +8,6 @@
 #include "pycppad/fwd.hpp"
 #include "eigenpy/user-type.hpp"
 #include "eigenpy/ufunc.hpp"
-#include <cppad/cppad.hpp>
 
 namespace pycppad
 {

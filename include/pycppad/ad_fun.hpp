@@ -6,7 +6,6 @@
 #define __pycppad_ad_fun_hpp__
 
 #include "pycppad/fwd.hpp"
-#include <cppad/cppad.hpp>
 
 namespace pycppad
 {
