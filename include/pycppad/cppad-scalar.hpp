@@ -2,6 +2,9 @@
  * Copyright 2021 INRIA
  */
 
+#ifndef __pycppad_cppad_scalar_hpp__
+#define __pycppad_cppad_scalar_hpp__
+
 #include "pycppad/ad.hpp"
 #include "pycppad/independent.hpp"
 #include "pycppad/ad_fun.hpp"
@@ -47,3 +50,5 @@ namespace pycppad
     pycppad::IndependentVisitor<RowVectorXads>::expose();
   }
 }
+
+#endif // ifndef __pycppad_cppad_scalar_hpp__

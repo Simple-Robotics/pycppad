@@ -2,8 +2,8 @@
  * Copyright 2021 INRIA
  */
 
-#ifndef __pycppad_independent_expose_hpp__
-#define __pycppad_independent_expose_hpp__
+#ifndef __pycppad_independent_hpp__
+#define __pycppad_independent_hpp__
 
 #include "pycppad/fwd.hpp"
 #include <cppad/core/independent/independent.hpp>
@@ -76,4 +76,4 @@ namespace pycppad
     }
   };
 }
-#endif //#ifndef __pycppad_ad_expose_hpp__
+#endif //#ifndef __pycppad_ad_hpp__
