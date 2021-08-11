@@ -24,7 +24,10 @@ namespace pycppad
     void visit(PyClass& cl) const
     {
       cl
-      .def(bp::init<>())
+      .def(bp::init<>(bp::arg("self"),"Default constructor"))
+      .def(bp::init<Scalar>(bp::args("self","value"),
+                            std::string("Constructor from a ").append(typeid(Scalar).name()).c_str()))
+      .def(bp::init<AD>(bp::args("self","other"),"Copy constructor"))
       .def(bp::self + bp::self)
       .def(bp::self - bp::self)
       .def(bp::self * bp::self)
@@ -81,8 +84,8 @@ namespace pycppad
     {
       bp::class_<AD>("AD",
 		     "AD type corresponding to the scalar.\n\n",
-		     bp::init<Scalar>(bp::arg("value")))
 	.def(ADVisitor<Scalar>());
+                     bp::no_init)
 
       bp::def("Value",&::CppAD::Value<Scalar>,
 	      bp::arg("x"),
