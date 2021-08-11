@@ -6,6 +6,8 @@
 #define __pycppad_independent_hpp__
 
 #include "pycppad/fwd.hpp"
+
+#include <eigenpy/eigenpy.hpp>
 #include <cppad/core/independent/independent.hpp>
 
 namespace pycppad
@@ -14,8 +16,10 @@ namespace pycppad
  
   template<typename ADVector>
   class IndependentVisitor
-  :  public bp::def_visitor< IndependentVisitor<ADVector> >
+  : public bp::def_visitor< IndependentVisitor<ADVector> >
   {
+    typedef Eigen::Ref<ADVector> RefADVector;
+    
   public:
     template<class PyClass>
     void visit(PyClass&) const
@@ -23,30 +27,27 @@ namespace pycppad
     
   public:
     
-    static void Independent3(const ADVector &x_,
-			     const size_t abort_op_index_,
-			     const bool record_compare_)
+    static void Independent3(RefADVector x,
+                             const size_t abort_op_index_,
+                             const bool record_compare_)
     {
-      ADVector& x = const_cast<ADVector&>(x_);
+      ADVector x_(x), dynamic(0);
       size_t abort_op_index = abort_op_index_;
       bool record_compare = record_compare_;
-      ::CppAD::Independent(x, abort_op_index, record_compare);
+      ::CppAD::Independent(x_, abort_op_index, record_compare, dynamic);
+      x = x_;
       return;
     }
 
-    static void Independent2(const ADVector &x_, const size_t abort_op_index_)
+    static void Independent2(RefADVector x,
+                             const size_t abort_op_index_)
     {
-      ADVector& x = const_cast<ADVector&>(x_);
-      size_t abort_op_index = abort_op_index_;
-      ::CppAD::Independent(x, abort_op_index);
-      return;
+      Independent3(x,abort_op_index_,true);
     }
 
-    static void Independent1(const ADVector &x_)
+    static void Independent1(RefADVector x)
     {
-      ADVector& x = const_cast<ADVector&>(x_);
-      ::CppAD::Independent(x);
-      return;
+      Independent3(x,0,true);
     }
 
     static void expose()
