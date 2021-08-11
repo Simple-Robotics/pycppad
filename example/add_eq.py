@@ -15,7 +15,7 @@ Independent(x)
 
 # range space vector
 m = 2;
-y = np.array([AD(0.),]*m)
+y = np.zeros((2,),dtype=AD)
 y[0] = x[0];         # initial value
 y[0] += AD(2);           # AD<double> += int
 y[0] += AD(4.);          # AD<double> += double
@@ -23,14 +23,13 @@ y[0] += x[0]
 y[1] = y[0]; # use the result of a compound assignment
 
 # create f: x -> y and stop tape recording
-f = ADFun();
+f = ADFun(x,y);
 input("raw_input")
-f.Dependent(x,y)
 
-f.optimize("no_compare_op")
+#f.optimize("no_compare_op")
 
-# check value
-assert(Value(y[0]) == x0+2.+4.+x0);
+assert(Value(y[0]) == x0+2.+4.+x0)
+assert(Value(y[1]) == Value(y[0]))
 
 dx = np.zeros(n)
 dy = np.zeros(m)
@@ -38,5 +37,7 @@ dy = np.zeros(m)
 dx[0] = 1.
 print("x")
 dy = f.Forward(1 ,dx)
+assert(dy[0] == 2.)
+assert(dy[1] == 2.)
 
 print("y")
