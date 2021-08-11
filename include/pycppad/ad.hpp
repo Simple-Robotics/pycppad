@@ -61,7 +61,7 @@ namespace pycppad
       .def("asinh_me", &AD::asinh_me, bp::arg("self"))
       .def("acosh_me", &AD::acosh_me, bp::arg("self"))
       .def("atanh_me", &AD::atanh_me, bp::arg("self"))
-      .def("erf_me", &AD::erf_me, bp::args("self", "complement"), "self, bool")
+      .def("erf_me", &AD::erf_me, bp::args("self","complement"))
       .def("expm1_me", &AD::expm1_me, bp::arg("self"))
       .def("log1p_me", &AD::log1p_me, bp::arg("self"))
       .def("__str__",&print)
