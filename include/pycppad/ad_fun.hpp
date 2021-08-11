@@ -18,7 +18,9 @@ namespace pycppad
 
     typedef ::CppAD::ADFun<Scalar> ADFun;
     typedef Eigen::Matrix<::CppAD::AD<Scalar>, Eigen::Dynamic, 1> ADVector;
+    typedef Eigen::Ref<ADVector> RefADVector;
     typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1> Vector;
+    
   public:
 
     static Vector Forward_multiple(ADFun& f, size_t q , const Vector&xq) {
@@ -33,7 +35,7 @@ namespace pycppad
 	.def("from_json", &ADFun::from_json, bp::args("self", "json"))
 	//.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
 	.def("to_json", &ADFun::to_json, bp::arg("self"))
-	.def("Dependent", (void (ADFun::*)(const ADVector &, const ADVector &))(&ADFun::Dependent),
+	.def("Dependent",&Dependent,
 	     bp::args("self", "x", "y"))
 	.def("Forward", (Vector (ADFun::*)(size_t , size_t, const Vector&))(&ADFun::Forward),
 	     bp::args("self", "q", "r", "x"))
@@ -54,6 +56,13 @@ namespace pycppad
     }
     
   private:
+    static void Dependent(ADFun & self, RefADVector x, RefADVector y)
+    {
+      ADVector x_(x),y_(y);
+      self.Dependent(x_,y_);
+      x = x_; y = y_;
+    }
+    
 
   public:
     static void expose()
