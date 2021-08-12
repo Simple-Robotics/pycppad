@@ -15,7 +15,7 @@ Independent(x)
 
 # range space vector
 m = 2;
-y = np.zeros((2,),dtype=AD)
+y = np.zeros((m,),dtype=AD)
 y[0] = x[0];         # initial value
 y[0] += AD(2);           # AD<double> += int
 y[0] += AD(4.);          # AD<double> += double
