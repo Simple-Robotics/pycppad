@@ -35,9 +35,16 @@ dx = np.zeros(n)
 dy = np.zeros(m)
 
 dx[0] = 1.
-print("x")
 dy = f.Forward(1 ,dx)
 assert(dy[0] == 2.)
 assert(dy[1] == 2.)
 
-print("y")
+# reverse computation of derivative of y[0]
+w = np.zeros((m,))
+dw = np.zeros((n),)
+
+w[0] = 1.
+w[1] = 0.
+dw = f.Reverse(1, w)
+
+assert(dw[0] == 2.)
