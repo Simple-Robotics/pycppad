@@ -14,6 +14,8 @@
 #include <cppad/cppad.hpp>
 #include <Eigen/Core>
 
+#ifndef PYCPPAD_EXCLUDE_EIGEN_NUMTRAITS_SPECIALIZATION
+
 namespace Eigen
 {
   template <class Base> struct NumTraits< CppAD::AD<Base> >
@@ -66,5 +68,7 @@ namespace Eigen
     {  return CppAD::numeric_limits< CppAD::AD<Base> >::digits10; }
   };
 } // namespace Eigen
+
+#endif // ifndef PYCPPAD_EXCLUDE_EIGEN_NUMTRAITS_SPECIALIZATION
 
 #endif // ifndef __pycppad_fwd_hpp__
