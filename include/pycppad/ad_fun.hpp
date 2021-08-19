@@ -74,13 +74,28 @@ namespace pycppad
       return f;
     }
 
-  public:
-    static void expose()
+  protected:
+    
+    static std::string & get_class_name()
     {
-      bp::class_<ADFun, boost::noncopyable>("ADFun",
-			"Class used to hold function objects.\n\n",
-			bp::init<>())
-      .def(ADFunVisitor<Scalar>());
+      static std::string class_name;
+      return class_name;
+    }
+    
+    static void set_class_name(const std::string & class_name)
+    {
+      get_class_name() = class_name;
+    }
+
+    
+  public:
+    static void expose(const std::string & class_name = "ADFun")
+    {
+      set_class_name(class_name);
+      bp::class_<ADFun, boost::noncopyable>(class_name.c_str(),
+					    "Class used to hold function objects.\n\n",
+					    bp::init<>())
+	.def(ADFunVisitor<Scalar>());
 
     }
   };
