@@ -12,8 +12,7 @@
 
 BOOST_PYTHON_MODULE(pycppad)
 {
-  enum { Options = 0 };
   
   eigenpy::enableEigenPy();
   pycppad::enablePyCppAD();
-};
+}
