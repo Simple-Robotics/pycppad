@@ -37,7 +37,7 @@ namespace pycppad
       //.def("swap", &ADFun::swap, bp::args("self", "f"))
       .def("from_json", &ADFun::from_json, bp::args("self", "json"))
       //.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
-      .def("to_json", &ADFun::to_json, bp::arg("self"))
+      //.def("to_json", &ADFun::to_json, bp::arg("self"))
       .def("size_order", &ADFun::size_order, bp::arg("self"))
       .def("Dependent",&Dependent,
            bp::args("self", "x", "y"))
