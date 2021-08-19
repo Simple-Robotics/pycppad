@@ -11,6 +11,7 @@
 #include "pycppad/codegen/cg.hpp"
 #include "pycppad/codegen/ad.hpp"
 #include "pycppad/ad.hpp"
+#include "pycppad/independent.hpp"
 #include "pycppad/ad_fun.hpp"
 
 
@@ -23,8 +24,8 @@ namespace pycppad
     {
       typedef ::CppAD::cg::CG<Scalar> CGScalar;
       typedef ::CppAD::AD<CGScalar> ADCGScalar;
-      //typedef Eigen::Matrix<ADCGScalar,Eigen::Dynamic,1> VectorADCG;
-      //typedef Eigen::Matrix<ADCGScalar,1,Eigen::Dynamic> RowVectorADCG;
+      typedef Eigen::Matrix<ADCGScalar,Eigen::Dynamic,1> VectorADCG;
+      typedef Eigen::Matrix<ADCGScalar,1,Eigen::Dynamic> RowVectorADCG;
       
       eigenpy::exposeType<CGScalar>();
       eigenpy::exposeType<CGScalar,Eigen::RowMajor>();
@@ -36,9 +37,9 @@ namespace pycppad
 
 
       pycppad::ADVisitor<CGScalar>::expose("ADCG");
-      //pycppad::ADFunVisitor<CGScalar>::expose("ADCGFun");
-      //pycppad::IndependentVisitor<VectorADCG>::expose();
-      //pycppad::IndependentVisitor<RowVectorADCG>::expose();      
+      pycppad::ADFunVisitor<CGScalar>::expose("ADCGFun");
+      pycppad::IndependentVisitor<VectorADCG>::expose("CGIndependent");
+      pycppad::IndependentVisitor<RowVectorADCG>::expose("CGIndependent");
     }
   }
 }
