@@ -5,8 +5,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 
 SET(PROJECT_NAME pycppad)
-SET(PROJECT_DESCRIPTION "Python bindings for CppAD using Boost.Python")
-SET(PROJECT_URL "https://gitlab.inria.fr/rbudhira/pycppad")
+SET(PROJECT_DESCRIPTION "Python bindings for CppAD and CppADCodeGen using Boost.Python")
+SET(PROJECT_URL "https://github.com/simple-robotics/pycppad")
 
 # Project options
 OPTION(SUFFIX_SO_VERSION "Suffix library name with its version" ON)
@@ -44,9 +44,9 @@ EXPORT_BOOST_DEFAULT_OPTIONS()
 
 ADD_PROJECT_DEPENDENCY(cppad 20180000.0 REQUIRED PKG_CONFIG_REQUIRES "cppad >= 20180000.0")
 ADD_PROJECT_DEPENDENCY(Eigen3 REQUIRED PKG_CONFIG_REQUIRES "eigen3 >= 3.0.5")
-ADD_PROJECT_DEPENDENCY(eigenpy 2.6.5 REQUIRED)
+ADD_PROJECT_DEPENDENCY(eigenpy 2.6.7 REQUIRED)
 
-OPTION(BUILD_CODEGEN_BINDINGS "Build the python bindings for code generation (via CppADCodeGen)" ON)
+OPTION(BUILD_CODEGEN_BINDINGS "Build the python bindings for code generation (via CppADCodeGen)" OFF)
 
 IF(BUILD_CODEGEN_BINDINGS)
   ADD_PROJECT_DEPENDENCY(cppadcg 2.4.1 REQUIRED PKG_CONFIG_REQUIRES "cppadcg >= 2.4.1") # CppADCodeGen 2.4.1 is the first version to check the minimal version of CppAD
