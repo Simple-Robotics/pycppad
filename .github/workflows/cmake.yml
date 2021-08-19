@@ -19,7 +19,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        sudo apt install libboost-all-dev libeigen3-dev
+        sudo apt install libboost-python-dev libeigen3-dev
         . /etc/os-release
         sudo tee /etc/apt/sources.list.d/robotpkg.list <<EOF
         deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $UBUNTU_CODENAME robotpkg
