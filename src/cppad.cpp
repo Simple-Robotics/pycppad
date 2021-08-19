@@ -15,10 +15,10 @@ namespace pycppad
   
   void enablePyCppAD()
   {
-    exposeCppADScalar<double>();
+    exposeCppADScalar<PYCPPAD_SCALAR_TYPE>();
 
 #ifdef PYCPPAD_BUILD_CPPAD_CODEGEN_BINDINGS
-    codegen::exposeCppADCGScalar<double>();
+    codegen::exposeCppADCGScalar<PYCPPAD_SCALAR_TYPE>();
 #endif
     
   }

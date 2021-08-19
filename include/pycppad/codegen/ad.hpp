@@ -11,7 +11,7 @@ namespace pycppad
 {
  
   template<>
-  int64_t ADVisitor<::CppAD::cg::CG<double> >::__int__(const AD & self)
+  int64_t ADVisitor<::CppAD::cg::CG<PYCPPAD_SCALAR_TYPE> >::__int__(const AD & self)
   {
     return static_cast<int>(::CppAD::Value<Scalar>(self).getValue());
   }
