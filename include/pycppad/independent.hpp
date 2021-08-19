@@ -24,6 +24,20 @@ namespace pycppad
     template<class PyClass>
     void visit(PyClass&) const
     { }
+
+  protected:
+    
+    static std::string & get_class_name()
+    {
+      static std::string class_name;
+      return class_name;
+    }
+    
+    static void set_class_name(const std::string & class_name)
+    {
+      get_class_name() = class_name;
+    }
+
     
   public:
     
@@ -39,9 +53,10 @@ namespace pycppad
       return;
     }
 
-    static void expose()
+    static void expose(const std::string & class_name = "Independent")
     {
-      bp::def("Independent",&Independent,
+      set_class_name(class_name);
+      bp::def(class_name.c_str(),&Independent,
               (bp::arg("x"), bp::arg("abort_op_index") = 0, bp::arg("record_compare") = true),
               "define a variable as Independent."
               "Parameters:\n"

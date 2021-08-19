@@ -13,11 +13,12 @@ namespace pycppad
 {
   namespace bp = boost::python;
  
-  template<typename Scalar>
+  template<typename _Scalar>
   class ADVisitor
-  : public bp::def_visitor< ADVisitor<Scalar> >
+  : public bp::def_visitor< ADVisitor<_Scalar> >
   {
   public:
+    typedef _Scalar Scalar;
     typedef ::CppAD::AD<Scalar> AD;
     
     template<class PyClass>

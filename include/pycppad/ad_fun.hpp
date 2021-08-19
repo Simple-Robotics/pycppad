@@ -37,7 +37,7 @@ namespace pycppad
       //.def("swap", &ADFun::swap, bp::args("self", "f"))
       .def("from_json", &ADFun::from_json, bp::args("self", "json"))
       //.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
-      .def("to_json", &ADFun::to_json, bp::arg("self"))
+      //.def("to_json", &ADFun::to_json, bp::arg("self"))
       .def("size_order", &ADFun::size_order, bp::arg("self"))
       .def("Dependent",&Dependent,
            bp::args("self", "x", "y"))
@@ -74,13 +74,28 @@ namespace pycppad
       return f;
     }
 
-  public:
-    static void expose()
+  protected:
+    
+    static std::string & get_class_name()
     {
-      bp::class_<ADFun, boost::noncopyable>("ADFun",
-			"Class used to hold function objects.\n\n",
-			bp::init<>())
-      .def(ADFunVisitor<Scalar>());
+      static std::string class_name;
+      return class_name;
+    }
+    
+    static void set_class_name(const std::string & class_name)
+    {
+      get_class_name() = class_name;
+    }
+
+    
+  public:
+    static void expose(const std::string & class_name = "ADFun")
+    {
+      set_class_name(class_name);
+      bp::class_<ADFun, boost::noncopyable>(class_name.c_str(),
+					    "Class used to hold function objects.\n\n",
+					    bp::init<>())
+	.def(ADFunVisitor<Scalar>());
 
     }
   };
