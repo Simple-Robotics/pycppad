@@ -1,10 +1,6 @@
-name: CMake
+name: PyCppAD CI compilation
 
-on:
-  push:
-    branches: [ master, devel ]
-  pull_request:
-    branches: [ master, devel ]
+on: [push,pull_request]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -30,10 +26,6 @@ jobs:
         deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $UBUNTU_CODENAME robotpkg
         EOF
         curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
-        export PATH=$PATH:/opt/openrobots/bin
-        export PYTHONPATH=$PYTHONPATH:/opt/openrobots/lib/python3/site-packages:/opt/openrobots/lib/python3/dist-packages
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/openrobots/lib64:/opt/openrobots/lib/x86_64-linux-gnu:/opt/openrobots/lib/plugin:/opt/openrobots/lib
-        export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/openrobots/lib/pkgconfig:/opt/openrobots/share/pkgconfig:/opt/openrobots/lib/x86_64-linux-gnu/pkgconfig:/opt/openrobots/lib64/pkgconfig
         sudo apt update
         sudo apt install robotpkg-cppad robotpkg-py38-eigenpy
 
@@ -42,7 +34,11 @@ jobs:
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: |
         git submodule update --init
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DPYTHON_EXECUTABLE=$(which python3)
+        export PATH=$PATH:/opt/openrobots/bin
+        export PYTHONPATH=$PYTHONPATH:/opt/openrobots/lib/python3/site-packages:/opt/openrobots/lib/python3/dist-packages
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/openrobots/lib64:/opt/openrobots/lib/x86_64-linux-gnu:/opt/openrobots/lib/plugin:/opt/openrobots/lib
+        export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/openrobots/lib/pkgconfig:/opt/openrobots/share/pkgconfig:/opt/openrobots/lib/x86_64-linux-gnu/pkgconfig:/opt/openrobots/lib64/pkgconfig
+        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DPYTHON_EXECUTABLE=$(which python3) -DCMAKE_PREFIX_PATH=/opt/openrobots
 
     - name: Build
       # Build your program with the given configuration
