@@ -3,7 +3,7 @@
   <name>pycppad</name>
   <version>1.0.0</version>
   <description>Python bindings for CppAD and CppADCodeGen using Boost.Python</description>
-  <maintainer email="rohan.budhiraja@inria.fr">Justin Carpentier</maintainer>
+  <maintainer email="rohan.budhiraja@inria.fr">Rohan Budhiraja</maintainer>
   <author>Rohan Budhiraja</author>
   <author>Justin Carpentier</author>
   <license>BSD</license>
