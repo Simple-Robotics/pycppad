@@ -21,6 +21,21 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install Dependencies
+      run: |
+        sudo apt install libboost-all-dev cppad libeigen3-dev
+        . /etc/os-release
+        sudo tee /etc/apt/sources.list.d/robotpkg.list <<EOF
+        deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $UBUNTU_CODENAME robotpkg
+        EOF
+        curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
+        export PATH=$PATH:/opt/openrobots/bin
+        export PYTHONPATH=$PYTHONPATH:/opt/openrobots/lib/python3/site-packages:/opt/openrobots/lib/python3/dist-packages
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/openrobots/lib64:/opt/openrobots/lib/x86_64-linux-gnu:/opt/openrobots/lib/plugin:/opt/openrobots/lib
+        export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/openrobots/lib/pkgconfig:/opt/openrobots/share/pkgconfig:/opt/openrobots/lib/x86_64-linux-gnu/pkgconfig:/opt/openrobots/lib64/pkgconfig
+        sudo apt update
+        sudo apt install robotpkg-py38-eigenpy
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
