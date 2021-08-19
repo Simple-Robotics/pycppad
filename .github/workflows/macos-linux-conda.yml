@@ -1,0 +1,56 @@
+name: CI - PyCppAD for Mac OS X/Linux via Conda
+
+on: [push,pull_request]
+
+jobs:
+  pycppad-ci-linux:
+    name: CI - PyCppAD on ${{ matrix.os }} via Conda
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest", "macos-latest"]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Checkout submodules
+      run: |
+        git submodule update --init
+
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: pycppad
+        auto-update-conda: true
+        environment-file: .github/workflows/conda/environment.yml
+        python-version: 3.8
+
+    - name: Install cmake and update conda
+      shell: bash -l {0}
+      run: |
+        conda activate pycppad
+        conda install cmake -c main
+    
+    - name: Build PyCppAD
+      shell: bash -l {0}
+      run: |
+        conda activate pycppad
+        echo $CONDA_PREFIX
+
+        mkdir build
+        cd build
+
+        cmake .. -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=$(which python3)
+        make
+        make build_tests
+        export CTEST_OUTPUT_ON_FAILURE=1
+        make test
+        make install
+
+    - name: Uninstall PyCppAD
+      shell: bash -l {0}
+      run: |
+        cd build
+        make uninstall
+	

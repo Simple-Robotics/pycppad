@@ -1,0 +1,11 @@
+name: pycppad
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - eigen
+  - cmake
+  - numpy
+  - pkg-config
+  - boost
+  - cppad
