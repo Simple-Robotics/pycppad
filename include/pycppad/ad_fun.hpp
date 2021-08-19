@@ -34,7 +34,7 @@ namespace pycppad
       cl
       .def("__init__",
            bp::make_constructor(&constructor,bp::default_call_policies(),bp::args("x","y")))
-      .def("swap", &ADFun::swap, bp::args("self", "f"))
+      //.def("swap", &ADFun::swap, bp::args("self", "f"))
       .def("from_json", &ADFun::from_json, bp::args("self", "json"))
       //.def("from_graph", &ADFun::from_graph, bp::args("self", "graph_obj"))
       .def("to_json", &ADFun::to_json, bp::arg("self"))
