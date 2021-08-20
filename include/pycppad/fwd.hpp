@@ -5,6 +5,10 @@
 #ifndef __pycppad_fwd_hpp__
 #define __pycppad_fwd_hpp__
 
+#include "pycppad/config.hpp"
+#include "pycppad/deprecated.hpp"
+#include "pycppad/warning.hpp"
+
 #define BOOST_BIND_GLOBAL_PLACEHOLDERS
 #include <boost/python.hpp>
 #include <boost/python/scope.hpp>
