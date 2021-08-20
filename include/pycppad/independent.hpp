@@ -19,26 +19,7 @@ namespace pycppad
   : public bp::def_visitor< IndependentVisitor<ADVector> >
   {
     typedef Eigen::Ref<ADVector> RefADVector;
-    
-  public:
-    template<class PyClass>
-    void visit(PyClass&) const
-    { }
 
-  protected:
-    
-    static std::string & get_class_name()
-    {
-      static std::string class_name;
-      return class_name;
-    }
-    
-    static void set_class_name(const std::string & class_name)
-    {
-      get_class_name() = class_name;
-    }
-
-    
   public:
     
     static void Independent(RefADVector x,
@@ -53,12 +34,11 @@ namespace pycppad
       return;
     }
 
-    static void expose(const std::string & class_name = "Independent")
+    static void expose(const std::string & func_name = "Independent")
     {
-      set_class_name(class_name);
-      bp::def(class_name.c_str(),&Independent,
+      bp::def(func_name.c_str(),&Independent,
               (bp::arg("x"), bp::arg("abort_op_index") = 0, bp::arg("record_compare") = true),
-              "define a variable as Independent."
+              "Define a variable as Independent."
               "Parameters:\n"
               "\tx: variable\n"
               "\tabort_op_index: operator index at which execution will be aborted (during the recording of operations). The value zero corresponds to not aborting (will not match).\n"
