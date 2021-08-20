@@ -2,8 +2,8 @@
  * Copyright 2021 INRIA
  */
 
-#ifndef __pycppad_cppad_codegen_scalar_hpp__
-#define __pycppad_cppad_codegen_scalar_hpp__
+#ifndef __pycppad_cppad_codegen_cppadcg_scalar_hpp__
+#define __pycppad_cppad_codegen_cppadcg_scalar_hpp__
 
 #include <cppad/cg/cppadcg.hpp>
 #include <eigenpy/eigenpy.hpp>
@@ -44,4 +44,4 @@ namespace pycppad
   }
 }
 
-#endif // ifndef __pycppad_cppad_scalar_hpp__
+#endif // ifndef __pycppad_cppad_codegen_cppadcg_scalar_hpp__
