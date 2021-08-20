@@ -9,11 +9,9 @@
 #include <eigenpy/eigenpy.hpp>
 
 #include "pycppad/codegen/cg.hpp"
-#include "pycppad/codegen/ad.hpp"
 #include "pycppad/ad.hpp"
 #include "pycppad/independent.hpp"
 #include "pycppad/ad_fun.hpp"
-#include "pycppad/utils/scope.hpp"
 
 namespace pycppad
 {
@@ -36,13 +34,10 @@ namespace pycppad
 
       CGVisitor<Scalar>::expose();
 
-      {
-        bp::scope current_scope = pycppad::scope("codegen");
-        pycppad::ADVisitor<CGScalar>::expose("CG");
-        pycppad::ADFunVisitor<CGScalar>::expose("CGFun");
-        pycppad::IndependentVisitor<VectorADCG>::expose("Independent");
-        pycppad::IndependentVisitor<RowVectorADCG>::expose("Independent");
-      }
+      pycppad::ADVisitor<CGScalar>::expose("ADCG");
+      pycppad::ADFunVisitor<CGScalar>::expose("ADCGFun");
+      pycppad::IndependentVisitor<VectorADCG>::expose("Independent");
+      pycppad::IndependentVisitor<RowVectorADCG>::expose("Independent");
     }
   }
 }
