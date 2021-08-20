@@ -2,8 +2,8 @@
  * Copyright 2021 INRIA
  */
 
-#ifdef PYCPPAD_BUILD_CPPAD_CODEGEN_BINDINGS
-#include "pycppad/codegen/cppadcg-scalar.hpp"
+#ifdef PYCPPAD_WITH_CPPAD_CODEGEN_BINDINGS
+  #include "pycppad/codegen/cppadcg-scalar.hpp"
 #endif
 
 #include "pycppad/cppad.hpp"
@@ -17,7 +17,7 @@ namespace pycppad
   {
     exposeCppADScalar<double>();
 
-#ifdef PYCPPAD_BUILD_CPPAD_CODEGEN_BINDINGS
+#ifdef PYCPPAD_WITH_CPPAD_CODEGEN_BINDINGS
     codegen::exposeCppADCGScalar<double>();
 #endif
     

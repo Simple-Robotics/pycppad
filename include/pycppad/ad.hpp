@@ -6,8 +6,10 @@
 #define __pycppad_ad_hpp__
 
 #include "pycppad/fwd.hpp"
-#include "eigenpy/user-type.hpp"
-#include "eigenpy/ufunc.hpp"
+#include "pycppad/cast.hpp"
+
+#include <eigenpy/user-type.hpp>
+#include <eigenpy/ufunc.hpp>
 
 namespace pycppad
 {
@@ -27,7 +29,7 @@ namespace pycppad
       cl
       .def(bp::init<>(bp::arg("self"),"Default constructor"))
       .def(bp::init<Scalar>(bp::args("self","value"),
-                            std::string("Constructor from a ").append(typeid(Scalar).name()).c_str()))
+                            std::string("Constructor from a ").append(bp::type_id<Scalar>().name()).c_str()))
       .def(bp::init<AD>(bp::args("self","other"),"Copy constructor"))
       .def(bp::self + bp::self)
       .def(bp::self - bp::self)
@@ -71,7 +73,7 @@ namespace pycppad
       .def("__repr__",&print)
       
       .def("__float__",&::CppAD::Value<Scalar>)
-      .def("__int__",&__int__)
+      .def("__int__",&internal::Cast<AD,int64_t>::run)
       ;
     }
     
@@ -82,11 +84,6 @@ namespace pycppad
       std::stringstream ss;
       ss << get_class_name() << "(" << self <<")";
       return ss.str();
-    }
-    
-    static int64_t __int__(const AD & self)
-    {
-      return static_cast<int>(::CppAD::Value<Scalar>(self));
     }
 
   protected:
@@ -109,7 +106,7 @@ namespace pycppad
     {
       set_class_name(class_name);
       bp::class_<AD>(class_name.c_str(),
-                     std::string("AD type corresponding to the scalar type ").append(typeid(Scalar).name()).c_str(),
+                     std::string("AD type corresponding to the scalar type ").append(bp::type_id<Scalar>().name()).c_str(),
                      bp::no_init)
       .def(ADVisitor<Scalar>());
 

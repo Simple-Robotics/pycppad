@@ -38,7 +38,7 @@ jobs:
         export PYTHONPATH=$PYTHONPATH:/opt/openrobots/lib/python3/site-packages:/opt/openrobots/lib/python3/dist-packages
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/openrobots/lib64:/opt/openrobots/lib/x86_64-linux-gnu:/opt/openrobots/lib/plugin:/opt/openrobots/lib
         export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/openrobots/lib/pkgconfig:/opt/openrobots/share/pkgconfig:/opt/openrobots/lib/x86_64-linux-gnu/pkgconfig:/opt/openrobots/lib64/pkgconfig
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DPYTHON_EXECUTABLE=$(which python3) -DCMAKE_PREFIX_PATH=/opt/openrobots -DBUILD_CODEGEN_BINDINGS=ON
+        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DPYTHON_EXECUTABLE=$(which python3) -DCMAKE_PREFIX_PATH=/opt/openrobots -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
 
     - name: Build
       # Build your program with the given configuration
