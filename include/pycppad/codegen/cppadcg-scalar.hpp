@@ -13,15 +13,16 @@
 #include "pycppad/ad.hpp"
 #include "pycppad/independent.hpp"
 #include "pycppad/ad_fun.hpp"
-
+#include "pycppad/utils/scope.hpp"
 
 namespace pycppad
 {
-  namespace codegen {
-
+  namespace codegen
+  {
     template<typename Scalar>
     void exposeCppADCGScalar()
     {
+      namespace bp = boost::python;
       typedef ::CppAD::cg::CG<Scalar> CGScalar;
       typedef ::CppAD::AD<CGScalar> ADCGScalar;
       typedef Eigen::Matrix<ADCGScalar,Eigen::Dynamic,1> VectorADCG;
@@ -35,11 +36,13 @@ namespace pycppad
 
       CGVisitor<Scalar>::expose();
 
-
-      pycppad::ADVisitor<CGScalar>::expose("ADCG");
-      pycppad::ADFunVisitor<CGScalar>::expose("ADCGFun");
-      pycppad::IndependentVisitor<VectorADCG>::expose("CGIndependent");
-      pycppad::IndependentVisitor<RowVectorADCG>::expose("CGIndependent");
+      {
+        bp::scope current_scope = pycppad::scope("codegen");
+        pycppad::ADVisitor<CGScalar>::expose("CG");
+        pycppad::ADFunVisitor<CGScalar>::expose("CGFun");
+        pycppad::IndependentVisitor<VectorADCG>::expose("Independent");
+        pycppad::IndependentVisitor<RowVectorADCG>::expose("Independent");
+      }
     }
   }
 }
