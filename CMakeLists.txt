@@ -69,7 +69,6 @@ SET(${PROJECT_NAME}_SOURCES
 IF(BUILD_CODEGEN_BINDINGS)
   LIST(APPEND ${PROJECT_NAME}_HEADERS
     include/${PROJECT_NAME}/codegen/cg.hpp
-    include/${PROJECT_NAME}/codegen/ad.hpp
     include/${PROJECT_NAME}/codegen/cppadcg-scalar.hpp
     )
 ENDIF(BUILD_CODEGEN_BINDINGS)
