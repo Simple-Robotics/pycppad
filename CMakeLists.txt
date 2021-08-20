@@ -8,6 +8,7 @@ SET(PROJECT_NAME pycppad)
 SET(PROJECT_DESCRIPTION "Python bindings for CppAD and CppADCodeGen using Boost.Python")
 SET(PROJECT_URL "https://github.com/simple-robotics/pycppad")
 SET(PROJECT_CUSTOM_HEADER_EXTENSION "hpp")
+SET(PROJECT_USE_CMAKE_EXPORT TRUE)
 
 # Project options
 OPTION(SUFFIX_SO_VERSION "Suffix library name with its version" ON)
