@@ -6,8 +6,10 @@
 #define __pycppad_ad_hpp__
 
 #include "pycppad/fwd.hpp"
-#include "eigenpy/user-type.hpp"
-#include "eigenpy/ufunc.hpp"
+#include "pycppad/cast.hpp"
+
+#include <eigenpy/user-type.hpp>
+#include <eigenpy/ufunc.hpp>
 
 namespace pycppad
 {
@@ -71,7 +73,7 @@ namespace pycppad
       .def("__repr__",&print)
       
       .def("__float__",&::CppAD::Value<Scalar>)
-      .def("__int__",&__int__)
+      .def("__int__",&internal::Cast<AD,int64_t>::run)
       ;
     }
     
@@ -82,11 +84,6 @@ namespace pycppad
       std::stringstream ss;
       ss << get_class_name() << "(" << self <<")";
       return ss.str();
-    }
-    
-    static int64_t __int__(const AD & self)
-    {
-      return static_cast<int>(::CppAD::Value<Scalar>(self));
     }
 
   protected:

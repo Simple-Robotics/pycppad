@@ -7,13 +7,38 @@
 
 #include <cppad/cg/cppadcg.hpp>
 
-#include "eigenpy/user-type.hpp"
-#include "eigenpy/ufunc.hpp"
+#include <eigenpy/user-type.hpp>
+#include <eigenpy/ufunc.hpp>
 
+#include "pycppad/cast.hpp"
 
 namespace pycppad
 {
-  namespace codegen {
+  namespace internal
+  {
+  
+    template<typename Scalar>
+    struct CppADValue<::CppAD::cg::CG<Scalar>>
+    {
+      static const Scalar & get(const ::CppAD::AD<::CppAD::cg::CG<Scalar>> & v)
+      {
+        return ::CppAD::Value<::CppAD::cg::CG<Scalar>>(v).getValue();
+      }
+    };
+  
+    template<typename Scalar, typename To>
+    struct Cast<::CppAD::cg::CG<Scalar>,To>
+    {
+      typedef ::CppAD::cg::CG<Scalar> From;
+      static To run(const From & from)
+      {
+        return static_cast<To>(::CppAD::Value<From>(from).getValue());
+      }
+    };
+  }
+
+  namespace codegen
+  {
     
     namespace bp = boost::python;
     
@@ -63,7 +88,7 @@ namespace pycppad
                       bp::make_function(&CG::getValue,
                                         bp::return_value_policy<bp::copy_const_reference>()),
                       &CG::setValue)
-        .def("__int__",&__int__)
+        .def("__int__",&internal::Cast<CG,int64_t>::run)
         ;
       }
 
