@@ -7,6 +7,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 SET(PROJECT_NAME pycppad)
 SET(PROJECT_DESCRIPTION "Python bindings for CppAD and CppADCodeGen using Boost.Python")
 SET(PROJECT_URL "https://github.com/simple-robotics/pycppad")
+SET(PROJECT_CUSTOM_HEADER_EXTENSION "hpp")
 
 # Project options
 OPTION(SUFFIX_SO_VERSION "Suffix library name with its version" ON)
@@ -60,6 +61,11 @@ SET(${PROJECT_NAME}_HEADERS
   include/${PROJECT_NAME}/cppad.hpp
   include/${PROJECT_NAME}/cppad-scalar.hpp
   include/${PROJECT_NAME}/utils/scope.hpp
+
+  # Generated headers
+  ${${PROJECT_NAME}_BINARY_DIR}/include/${PROJECT_NAME}/config.hpp
+  ${${PROJECT_NAME}_BINARY_DIR}/include/${PROJECT_NAME}/deprecated.hpp
+  ${${PROJECT_NAME}_BINARY_DIR}/include/${PROJECT_NAME}/warning.hpp
   )
 
 SET(${PROJECT_NAME}_SOURCES
