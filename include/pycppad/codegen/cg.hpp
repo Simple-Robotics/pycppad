@@ -55,7 +55,7 @@ namespace pycppad
         cl
         .def(bp::init<>(bp::arg("self"),"Default constructor"))
         .def(bp::init<Scalar>(bp::args("self","value"),
-                              std::string("Constructor from a ").append(typeid(Scalar).name()).c_str()))
+                              std::string("Constructor from a ").append(bp::type_id<Scalar>().name()).c_str()))
         .def(bp::init<CG>(bp::args("self","other"),"Copy constructor"))
         .def("isIdenticalZero", &CG::isIdenticalZero, bp::arg("self"))
         .def("isIdenticalOne", &CG::isIdenticalOne, bp::arg("self"))
@@ -125,7 +125,7 @@ namespace pycppad
       {
         set_class_name(class_name);
         bp::class_<CG>(class_name.c_str(),
-                       std::string("CG type corresponding to the scalar type ").append(typeid(Scalar).name()).c_str(),
+                       std::string("CG type corresponding to the scalar type ").append(bp::type_id<Scalar>().name()).c_str(),
                        bp::no_init)
         .def(CGVisitor<Scalar>());
         

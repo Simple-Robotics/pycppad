@@ -29,7 +29,7 @@ namespace pycppad
       cl
       .def(bp::init<>(bp::arg("self"),"Default constructor"))
       .def(bp::init<Scalar>(bp::args("self","value"),
-                            std::string("Constructor from a ").append(typeid(Scalar).name()).c_str()))
+                            std::string("Constructor from a ").append(bp::type_id<Scalar>().name()).c_str()))
       .def(bp::init<AD>(bp::args("self","other"),"Copy constructor"))
       .def(bp::self + bp::self)
       .def(bp::self - bp::self)
@@ -106,7 +106,7 @@ namespace pycppad
     {
       set_class_name(class_name);
       bp::class_<AD>(class_name.c_str(),
-                     std::string("AD type corresponding to the scalar type ").append(typeid(Scalar).name()).c_str(),
+                     std::string("AD type corresponding to the scalar type ").append(bp::type_id<Scalar>().name()).c_str(),
                      bp::no_init)
       .def(ADVisitor<Scalar>());
 
