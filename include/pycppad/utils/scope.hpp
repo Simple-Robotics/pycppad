@@ -28,7 +28,7 @@ namespace pycppad
     bp::object submodule(bp::borrowed(PyImport_AddModule(complete_submodule_name.c_str())));
     current_scope.attr(submodule_name.c_str()) = submodule;
 
-    return bp::scope(submodule);
+    return submodule;
   }
 
 } // namespace pycppad
