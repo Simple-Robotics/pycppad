@@ -101,11 +101,6 @@ namespace pycppad
         return ss.str();
       }
       
-      static int64_t __int__(const CG & self)
-      {
-        return static_cast<int>(self.getValue());
-      }
-      
     protected:
       
       static std::string & get_class_name()
