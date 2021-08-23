@@ -13,16 +13,31 @@ PyCppAD — Python bindings for CppAD Automatic Differentiation library
 
 ## Installing PyCppAD
 
+### Installation via `conda-forge`
+
+Installing `pycppad` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+
+```
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+```
+
+Once the `conda-forge` channel has been enabled, `pycppad` can be installed with:
+
+```
+conda install pycppad
+```
+
 ### Installation by source
 
 #### Dependencies
 
 PyCppAD dependes on the following dependencies:
-* [Boost.Python)](http://boostorg.github.io/python/doc/html/index.html)
+* [Boost.Python](http://boostorg.github.io/python/doc/html/index.html)
 * [Eigen3](https://eigen.tuxfamily.org)
 * [EigenPy](https://github.com/stack-of-tasks/eigenpy)
 * [CppAD](https://coin-or.github.io/CppAD/doc/install.htm)
-* Optionally, [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen)
+* [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen) (Optional)
 
 #### Compiling PyCppAD
 
@@ -40,29 +55,11 @@ make install
 
 Set up the `path_to_your_installation` and `path_to_your_development_source` based on your personal development environment. 
 
-Additionally, in order to compile with [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen) support, add `-DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON` to the cmake command:
+Alternatively, in order to compile with [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen) support, add `-DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON` to the cmake command, and follow the build sequence as before:
 
 ```
 cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=${path_to_your_installation} -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
 ```
-
-
-
-### Installation via `conda-forge`
-
-Installing `pycppad` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
-
-```
-conda config --add channels conda-forge
-conda config --set channel_priority strict
-```
-
-Once the `conda-forge` channel has been enabled, `pycppad` can be installed with:
-
-```
-conda install pycppad
-```
-
 
 ## Acknowledgments
 
