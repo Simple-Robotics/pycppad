@@ -64,25 +64,9 @@ namespace pycppad
           //     bp::args("self", "out", "lang", "dependent", "nameGen", "jobName"))
           ;
       }
-
-    protected:
-
-      static std::string & get_class_name()
-      {
-        static std::string class_name;
-        return class_name;
-      }
-      
-      static void set_class_name(const std::string & class_name)
-      {
-        get_class_name() = class_name;
-      }
-      
-    public:
       
       static void expose(const std::string & class_name = "CodeHandler")
       {
-        set_class_name(class_name);
         bp::class_<CodeHandler,
                    boost::noncopyable>(class_name.c_str(),
                                        "Helper class to analyze the operation graph"
