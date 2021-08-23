@@ -29,49 +29,41 @@ namespace pycppad
       void visit(PyClass& cl) const
       {
         cl
-          .def(bp::init<size_t>(bp::arg("self"),bp::arg("varCount") = 50))
+          .def(bp::init<size_t>(bp::args("self",bp::arg("varCount")=0.0),
+                                ""))
           .def("setReuseVariableIDs", &CodeHandler::setReuseVariableIDs, bp::args("self", "reuse"))
           .def("isReuseVariableIDs", &CodeHandler::isReuseVariableIDs, bp::arg("self"))
           .def("makeVariable",
-               static_cast<void (*)(CG&)>(&CodeHandler::makeVariable),
+               static_cast<void (CodeHandler::*)(CG&)>(&CodeHandler::makeVariable),
                bp::args("self", "variable"), "")
           .def("makeVariable",
-               static_cast<void (*)(ADCG&)>(&CodeHandler::makeVariable),
+               static_cast<void (CodeHandler::*)(ADCG&)>(&CodeHandler::makeVariable),
                bp::args("self", "variable"), "")
           .def("makeVariables",
-               static_cast<void (*)(VectorADCG&)>(&CodeHandler::makeVariable<VectorADCG>),
+               static_cast<void (CodeHandler::*)(VectorADCG&)>(&CodeHandler::template makeVariables<VectorADCG>),
                bp::args("self", "variables"), "")
           .def("makeVariables",
-               static_cast<void (*)(RowVectorADCG&)>(&CodeHandler::makeVariable<RowVectorADCG>),
+               static_cast<void (CodeHandler::*)(RowVectorADCG&)>(&CodeHandler::template makeVariables<RowVectorADCG>),
                bp::args("self", "variables"), "")
           .def("getIndependentVariableSize", &CodeHandler::getIndependentVariableSize, bp::arg("self"))
           .def("getIndependentVariableIndex", &CodeHandler::getIndependentVariableIndex, bp::args("self", "var"))
           .def("getMaximumVariableID", &CodeHandler::getMaximumVariableID, bp::arg("self"))
           .def("isVerbose", &CodeHandler::isVerbose, bp::arg("self"))
           .def("setVerbose", &CodeHandler::setVerbose, bp::arg("self"))
-          .def("getJobTimer", &CodeHandler::getJobTimer, bp::arg("self"))
-          .def("setJobTimer", &CodeHandler::setJobTimer, bp::args("self", "jobTimer"))
+          //.def("getJobTimer", &CodeHandler::getJobTimer, bp::arg("self"))
+          //.def("setJobTimer", &CodeHandler::setJobTimer, bp::args("self", "jobTimer"))
           .def("isZeroDependents", &CodeHandler::isZeroDependents, bp::arg("self"))
           .def("setZeroDependents", &CodeHandler::setZeroDependents, bp::args("self", "zeroDependents"))
           .def("getOperationTreeVisitId", &CodeHandler::getOperationTreeVisitId, bp::arg("self"))
-          .def("startOperationTreeVisit", &CodeHandler::startOperationTreeVisit, bp::arg("self"))
+          .def("startNewOperationTreeVisit", &CodeHandler::startNewOperationTreeVisit, bp::arg("self"))
           .def("isVisited", &CodeHandler::isVisited, bp::args("self", "node"))
           .def("markVisited", &CodeHandler::markVisited, bp::args("self", "node"))
           .def("getAtomicFunctionName", &CodeHandler::getAtomicFunctionName, bp::args("self", "id"))
-          .def("getExternamFuncMaxForwardOrder", &CodeHandler::getExternalFuncMaxForwardOrder, bp::arg("self"))
-          .def("getExternalFuncMaxReverseOrder", &CodeHandler::getExternalFuncMaxReverseOrder, bp::arg("self"))
-          .def("generateCode", &CodeHandler::generateCode, bp::arg("self", "out", "lang", "dependent", "nameGen", "jobName"))
-        .def("__repr__",&print)
+          //.def("getExternalFuncMaxForwardOrder", &CodeHandler::getExternalFuncMaxForwardOrder, bp::arg("self"))
+          //.def("getExternalFuncMaxReverseOrder", &CodeHandler::getExternalFuncMaxReverseOrder, bp::arg("self"))
+          //.def("generateCode", &CodeHandler::generateCode,
+          //     bp::args("self", "out", "lang", "dependent", "nameGen", "jobName"))
         ;
-      }
-
-    private:
-
-      static std::string print(const CodeHandler & self)
-      {
-        std::stringstream ss;
-        ss << get_class_name() << "(" << self <<")";
-        return ss.str();
       }
       
     protected:
