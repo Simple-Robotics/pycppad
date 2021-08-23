@@ -10,6 +10,8 @@
 
 #include "pycppad/codegen/cg.hpp"
 #include "pycppad/codegen/code-handler.hpp"
+#include "pycppad/codegen/lang/c/language-c.hpp"
+#include "pycppad/codegen/lang/c/lang-c-default-var-name-gen.hpp"
 #include "pycppad/ad.hpp"
 #include "pycppad/independent.hpp"
 #include "pycppad/ad_fun.hpp"
@@ -41,6 +43,8 @@ namespace pycppad
       pycppad::IndependentVisitor<RowVectorADCG>::expose("Independent");
 
       pycppad::codegen::CodeHandlerVisitor<Scalar>::expose("CodeHandler");
+      pycppad::codegen::LanguageCVisitor<Scalar>::expose("LanguageC");
+      pycppad::codegen::LangCDefaultVariableNameGeneratorVisitor<Scalar>::expose("LangCDefaultVariableNameGenerator");
       
       
       
