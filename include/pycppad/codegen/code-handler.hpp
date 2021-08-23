@@ -45,12 +45,14 @@ namespace pycppad
       template<typename VectorType, typename LangType, typename NameGenType>
       static std::string generateCode(CodeHandler& self,
                                       LangType& lang,
-                                      VectorType& dependent,
+                                      const VectorType& dependent,
                                       NameGenType& nameGen,
                                       const std::string& jobName)
       {
         std::ostringstream oss;
-        self.generateCode(oss, lang, dependent, nameGen, jobName);
+        VectorType& dependent_= const_cast<VectorType&>(dependent);
+        ::CppAD::cg::ArrayView<typename VectorType::Scalar> dependent_av(dependent_.data(), dependent_.size());
+        self.generateCode(oss, lang, dependent_av, nameGen, jobName);
         return oss.str();
       }
 
