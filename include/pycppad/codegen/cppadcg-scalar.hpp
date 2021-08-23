@@ -42,9 +42,9 @@ namespace pycppad
       pycppad::IndependentVisitor<VectorADCG>::expose("Independent");
       pycppad::IndependentVisitor<RowVectorADCG>::expose("Independent");
 
-      pycppad::codegen::CodeHandlerVisitor<Scalar>::expose("CodeHandler");
-      pycppad::codegen::LanguageCVisitor<Scalar>::expose("LanguageC");
-      pycppad::codegen::LangCDefaultVariableNameGeneratorVisitor<Scalar>::expose("LangCDefaultVariableNameGenerator");
+      CodeHandlerVisitor<Scalar>::expose("CodeHandler");
+      LanguageCVisitor<Scalar>::expose("LanguageC");
+      LangCDefaultVariableNameGeneratorVisitor<Scalar>::expose("LangCDefaultVariableNameGenerator");
       
       
       
