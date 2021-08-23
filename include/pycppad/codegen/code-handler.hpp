@@ -22,7 +22,8 @@ namespace pycppad
       typedef ::CppAD::AD<CG> ADCG;
       typedef Eigen::Matrix<ADCG,Eigen::Dynamic,1> VectorADCG;
       typedef Eigen::Matrix<ADCG,1,Eigen::Dynamic> RowVectorADCG;
-      
+      typedef Eigen::Matrix<CG,Eigen::Dynamic,1> VectorCG;
+      typedef Eigen::Matrix<CG,1,Eigen::Dynamic> RowVectorCG;      
       typedef ::CppAD::cg::CodeHandler<Scalar> CodeHandler;
       
       template<class PyClass>
@@ -39,11 +40,17 @@ namespace pycppad
                static_cast<void (CodeHandler::*)(ADCG&)>(&CodeHandler::makeVariable),
                bp::args("self", "variable"), "")
           .def("makeVariables",
-               static_cast<void (CodeHandler::*)(VectorADCG&)>(&CodeHandler::template makeVariables<VectorADCG>),
+               &CodeHandler::template makeVariables<VectorADCG>,
                bp::args("self", "variables"), "")
-          .def("makeVariables",
-               static_cast<void (CodeHandler::*)(RowVectorADCG&)>(&CodeHandler::template makeVariables<RowVectorADCG>),
-               bp::args("self", "variables"), "")
+          // .def("makeVariables",
+          //      &CodeHandler::template makeVariables<RowVectorADCG>,
+          //      bp::args("self", "variables"), "")
+          // .def("makeVariables",
+          //      &CodeHandler::template makeVariables<VectorCG>,
+          //      bp::args("self", "variables"), "")
+          // .def("makeVariables",
+          //      &CodeHandler::template makeVariables<RowVectorCG>,
+          //      bp::args("self", "variables"), "")          
           .def("getIndependentVariableSize", &CodeHandler::getIndependentVariableSize, bp::arg("self"))
           .def("getIndependentVariableIndex", &CodeHandler::getIndependentVariableIndex, bp::args("self", "var"))
           .def("getMaximumVariableID", &CodeHandler::getMaximumVariableID, bp::arg("self"))
