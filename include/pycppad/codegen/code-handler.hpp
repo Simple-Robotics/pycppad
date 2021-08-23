@@ -29,8 +29,7 @@ namespace pycppad
       void visit(PyClass& cl) const
       {
         cl
-          .def(bp::init<size_t>(bp::args("self",bp::arg("varCount")=0.0),
-                                ""))
+          .def(bp::init<size_t>(bp::args("self","varCount")))
           .def("setReuseVariableIDs", &CodeHandler::setReuseVariableIDs, bp::args("self", "reuse"))
           .def("isReuseVariableIDs", &CodeHandler::isReuseVariableIDs, bp::arg("self"))
           .def("makeVariable",
@@ -63,11 +62,11 @@ namespace pycppad
           //.def("getExternalFuncMaxReverseOrder", &CodeHandler::getExternalFuncMaxReverseOrder, bp::arg("self"))
           //.def("generateCode", &CodeHandler::generateCode,
           //     bp::args("self", "out", "lang", "dependent", "nameGen", "jobName"))
-        ;
+          ;
       }
-      
+
     protected:
-      
+
       static std::string & get_class_name()
       {
         static std::string class_name;
