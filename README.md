@@ -13,20 +13,11 @@ PyCppAD — Python bindings for CppAD Automatic Differentiation library
 
 ## Installing PyCppAD
 
-### Installation via `conda-forge`
+### Installation via <img src="https://s3.amazonaws.com/conda-dev/conda_logo.svg" height="18">
 
-Installing `pycppad` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
-
-```
-conda config --add channels conda-forge
-conda config --set channel_priority strict
-```
-
-Once the `conda-forge` channel has been enabled, `pycppad` can be installed with:
-
-```
-conda install pycppad
-```
+As simple as that:
+```bash
+   conda install pycppad -c conda-forge
 
 ### Installation by source
 
