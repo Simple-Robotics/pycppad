@@ -18,6 +18,7 @@ PyCppAD — Python bindings for CppAD Automatic Differentiation library
 As simple as that:
 ```bash
    conda install pycppad -c conda-forge
+```
 
 ### Installation by source
 
