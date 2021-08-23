@@ -24,6 +24,30 @@ PyCppAD dependes on the following dependencies:
 * [CppAD](https://coin-or.github.io/CppAD/doc/install.htm)
 * Optionally, [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen)
 
+#### Compiling PyCppAD
+
+Once the dependencies have been installed, follow the following commands to compile PyCppAD:
+
+```
+cd ${path_to_your_development_source}/
+git clone --recursive https://github.com/Simple-Robotics/pycppad.git
+cd pycppad
+mkdir _build-RELEASE
+cd _build-RELEASE
+cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=${path_to_your_installation}
+make install
+```
+
+Set up the `path_to_your_installation` and `path_to_your_development_source` based on your personal development environment. 
+
+Additionally, in order to compile with [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen) support, add `-DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON` to the cmake command:
+
+```
+cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=${path_to_your_installation} -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
+```
+
+
+
 ### Installation via `conda-forge`
 
 Installing `pycppad` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
