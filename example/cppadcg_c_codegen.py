@@ -41,4 +41,5 @@ jac = fun.Jacobian(indVars)
 
 langC = LanguageC("double", 3)
 nameGen = LangCDefaultVariableNameGenerator("y","x","v","array","sarray")
-handler.generateCode(langC, jac, nameGen, "")
+code = handler.generateCode(langC, jac, nameGen, "source")
+print(code)
