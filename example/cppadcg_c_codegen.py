@@ -1,4 +1,4 @@
-from pycppad import AD, ADCG, CG, Independent, Value, ADCGFun
+from pycppad import AD, ADCG, CG, Independent, Value, ADCGFun, CodeHandler, LanguageC, LangCDefaultVariableNameGenerator
 import numpy as np
 
 #/***************************************************************************
@@ -24,3 +24,21 @@ y[0] = a / ADCG(CG(2.))
 
 fun = ADCGFun(x, y); # the model tape
 
+
+# /***************************************************************************
+# *                        Generate the C source code
+# **************************************************************************/
+
+# /**
+# * start the special steps for source code generation for a Jacobian
+# */
+handler = CodeHandler(50)
+
+indVars = np.array([CG(0.)]*n)
+handler.makeVariables(indVars)
+
+jac = fun.Jacobian(indVars)
+
+langC = LanguageC("double", 3)
+nameGen = LangCDefaultVariableNameGenerator("y","x","v","array","sarray")
+handler.generateCode(langC, jac, nameGen, "")
