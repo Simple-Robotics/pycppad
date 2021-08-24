@@ -56,7 +56,7 @@ jobs:
         cmake ^
           -G "Visual Studio 16 2019" -T "v142" -DCMAKE_GENERATOR_PLATFORM=x64 ^
           -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
-          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
+          -DCMAKE_BUILD_TYPE=Release ^
           -DPYTHON_SITELIB=%CONDA_PREFIX%\Lib\site-packages ^
           -DPYTHON_EXECUTABLE=%CONDA_PREFIX%\python.exe ^
           -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=OFF ^
