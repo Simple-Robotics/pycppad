@@ -1,4 +1,4 @@
-name: PyCppAD CI for Windows
+name: PyCppAD CI for Windows - Clang
 on:
   pull_request:
   push:
