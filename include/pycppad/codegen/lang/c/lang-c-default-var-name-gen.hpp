@@ -39,4 +39,4 @@ namespace pycppad
 
   }
 }
-#endif //#ifndef __pycppad_codegen_lang_c_language_c_hpp__
+#endif //#ifndef __pycppad_codegen_lang_c_lang_c_default_var_name_gen_hpp__
