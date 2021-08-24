@@ -77,6 +77,9 @@ IF(BUILD_WITH_CPPAD_CODEGEN_BINDINGS)
   LIST(APPEND ${PROJECT_NAME}_HEADERS
     include/${PROJECT_NAME}/codegen/cg.hpp
     include/${PROJECT_NAME}/codegen/cppadcg-scalar.hpp
+    include/${PROJECT_NAME}/codegen/code-handler.hpp
+    include/${PROJECT_NAME}/codegen/lang/c/language-c.hpp
+    include/${PROJECT_NAME}/codegen/lang/c/lang-c-default-var-name-gen.hpp
     )
 ENDIF(BUILD_WITH_CPPAD_CODEGEN_BINDINGS)
 
