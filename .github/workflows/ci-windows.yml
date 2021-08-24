@@ -2,9 +2,6 @@ name: PyCppAD CI for Windows
 on:
   pull_request:
   push:
-    branches:
-      - master
-      - devel
       
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
