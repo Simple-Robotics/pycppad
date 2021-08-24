@@ -68,22 +68,41 @@ namespace pycppad
           .def("isReuseVariableIDs", &CodeHandler::isReuseVariableIDs, bp::arg("self"))
           .def("makeVariable",
                static_cast<void (CodeHandler::*)(CG&)>(&CodeHandler::makeVariable),
-               bp::args("self", "variable"), "")
+               bp::args("self", "variable"),
+               "Marks the provided variable as being an independent variable.\n"
+               "Parameters:\n"
+               "\tvariable: the variables that will become independent variable")
           .def("makeVariable",
                static_cast<void (CodeHandler::*)(ADCG&)>(&CodeHandler::makeVariable),
-               bp::args("self", "variable"), "")
+               bp::args("self", "variable"),
+               "Marks the provided variable as being an independent variable.\n"
+               "Parameters:\n"
+               "\tvariable: the variables that will become independent variable"
+               )
           .def("makeVariables",
                &makeVariables<VectorCG>,
-               bp::args("self", "variables"), "")
+               bp::args("self", "variables"),
+               "Marks the provided variables as being independent variables.\n"
+               "Parameters:\n"
+               "\tvariables: the vector of variables that will become independent variables")
           .def("makeVariables",
                &CodeHandler::template makeVariables<RowVectorADCG>,
-               bp::args("self", "variables"), "")
+               bp::args("self", "variables"),
+               "Marks the provided variables as being independent variables.\n"
+               "Parameters:\n"
+               "\tvariables: the vector of variables that will become independent variables")
           .def("makeVariables",
                &CodeHandler::template makeVariables<VectorCG>,
-               bp::args("self", "variables"), "")
+               bp::args("self", "variables"),
+               "Marks the provided variables as being independent variables.\n"
+               "Parameters:\n"
+               "\tvariables: the vector of variables that will become independent variables")
           .def("makeVariables",
                &CodeHandler::template makeVariables<RowVectorCG>,
-               bp::args("self", "variables"), "")          
+               bp::args("self", "variables"),
+               "Marks the provided variables as being independent variables.\n"
+               "Parameters:\n"
+               "\tvariables: the vector of variables that will become independent variables")
           .def("getIndependentVariableSize", &CodeHandler::getIndependentVariableSize, bp::arg("self"))
           .def("getIndependentVariableIndex", &CodeHandler::getIndependentVariableIndex, bp::args("self", "var"))
           .def("getMaximumVariableID", &CodeHandler::getMaximumVariableID, bp::arg("self"))
@@ -97,13 +116,34 @@ namespace pycppad
           .def("startNewOperationTreeVisit", &CodeHandler::startNewOperationTreeVisit, bp::arg("self"))
           .def("isVisited", &CodeHandler::isVisited, bp::args("self", "node"))
           .def("markVisited", &CodeHandler::markVisited, bp::args("self", "node"))
-          .def("getAtomicFunctionName", &CodeHandler::getAtomicFunctionName, bp::args("self", "id"))
+          .def("getAtomicFunctionName", &CodeHandler::getAtomicFunctionName, bp::args("self", "id"),
+               "Provides the name used by an atomic function with a given ID.\n"
+               "Parameters:\n"
+               "\tid:  the atomic function ID.")
           //.def("getExternalFuncMaxForwardOrder", &CodeHandler::getExternalFuncMaxForwardOrder, bp::arg("self"))
           //.def("getExternalFuncMaxReverseOrder", &CodeHandler::getExternalFuncMaxReverseOrder, bp::arg("self"))
           .def("generateCode", &generateCode<VectorCG, LanguageC, LangCDefaultVariableNameGenerator>,
-               bp::args("self", "lang", "dependent", "nameGen", "jobName"))
+               (bp::arg("self"), bp::arg("lang"), bp::arg("dependent"), bp::arg("nameGen"), bp::arg("jobName")="source"),
+               "Creates the source code from the operations registered so far.\n"
+               "Parameters:\n"
+               "\tlang: The targeted language.\n"
+               "\tdependent: The dependent variables for which the source code\n"
+               "             should be generated. By defining this vector the \n"
+               "             number of operations in the source code can be\n"
+               "             reduced and thus providing a more optimized code.\n"
+               "\tnameGen: Provides the rules for variable name creation. data related to the model\n"
+               "\tjobName: Name of this job.")
           .def("generateCode", &generateCode<RowVectorCG, LanguageC, LangCDefaultVariableNameGenerator>,
-               bp::args("self", "lang", "dependent", "nameGen", "jobName"))
+               (bp::arg("self"), bp::arg("lang"), bp::arg("dependent"), bp::arg("nameGen"), bp::arg("jobName")="source"),
+               "Creates the source code from the operations registered so far.\n"
+               "Parameters:\n"
+               "\tlang: The targeted language.\n"
+               "\tdependent: The dependent variables for which the source code\n"
+               "             should be generated. By defining this vector the \n"
+               "             number of operations in the source code can be\n"
+               "             reduced and thus providing a more optimized code.\n"
+               "\tnameGen: Provides the rules for variable name creation. data related to the model\n"
+               "\tjobName: Name of this job.")
           ;
       }
       
