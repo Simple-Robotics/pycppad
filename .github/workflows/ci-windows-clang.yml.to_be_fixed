@@ -1,10 +1,7 @@
-name: PyCppAD CI for Windows
+name: PyCppAD CI for Windows - Clang
 on:
   pull_request:
   push:
-    branches:
-      - master
-      - devel
       
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -63,7 +60,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
           -DPYTHON_SITELIB=%CONDA_PREFIX%\Lib\site-packages ^
           -DPYTHON_EXECUTABLE=%CONDA_PREFIX%\python.exe ^
-          -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON ^
+          -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=OFF ^
           ..
 
         :: Build

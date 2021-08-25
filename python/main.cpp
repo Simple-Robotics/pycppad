@@ -23,7 +23,7 @@ inline std::string printVersion(const std::string & delimiter = ".")
 
 namespace bp = boost::python;
 
-BOOST_PYTHON_MODULE(pycppad)
+BOOST_PYTHON_MODULE(pycppad_pywrap)
 {
   bp::docstring_options module_docstring_options(true,true,false);
   
