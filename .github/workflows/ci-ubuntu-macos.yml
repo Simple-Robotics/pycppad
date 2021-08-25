@@ -3,10 +3,6 @@ name: PyCppAD CI for MacOS/Linux
 on:
   pull_request:
   push:
-    branches:
-      - master
-      - devel
-
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -56,7 +52,6 @@ jobs:
 
         cmake .. -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DPYTHON_EXECUTABLE=$(which python3) -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
         make
-        make build_tests
         export CTEST_OUTPUT_ON_FAILURE=1
         make test
         make install
