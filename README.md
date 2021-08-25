@@ -5,7 +5,6 @@ PyCppAD — Python bindings for CppAD Automatic Differentiation library
     <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-green.svg" alt="License"/></a>
     <a href="https://anaconda.org/conda-forge/pycppad"><img src="https://img.shields.io/conda/dn/conda-forge/pycppad.svg" alt="Conda Downloads"/></a>
     <a href="https://anaconda.org/conda-forge/pycppad"><img src="https://img.shields.io/conda/vn/conda-forge/pycppad.svg" alt="Conda Version"/></a>
-    <a href="https://conda.anaconda.org/conda-forge"><img src="https://anaconda.org/conda-forge/pycppad/badges/installer/conda.svg" alt="Anaconda-Server Badge"/></a>
     <a href="https://badge.fury.io/py/pycppad"><img src="https://badge.fury.io/py/pycppad.svg" alt="PyPI version" height="18"></a>
 </p>
 
