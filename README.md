@@ -20,6 +20,13 @@ As simple as that:
    conda install pycppad -c conda-forge
 ```
 
+### Installation via PyPI
+
+As simple as that:
+```bash
+   pip install pycppad
+```
+
 ### Installation by source
 
 #### Dependencies
