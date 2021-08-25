@@ -9,7 +9,6 @@
 #include "pycppad/cppad.hpp"
 #include "pycppad/cppad-scalar.hpp"
 
-
 namespace pycppad
 {
   

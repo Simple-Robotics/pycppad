@@ -5,6 +5,7 @@
 #ifndef __pycppad_cppad_hpp__
 #define __pycppad_cppad_hpp__
 
+#include "pycppad/fwd.hpp"
 
 namespace pycppad
 {
@@ -12,7 +13,7 @@ namespace pycppad
   template<typename Scalar>
   void exposeCppADScalar();
 
-  void enablePyCppAD();
+  PYCPPAD_DLLAPI void enablePyCppAD();
 }
 
 #endif  // #ifndef __pycppad_cppad_hpp__
