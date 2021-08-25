@@ -5,7 +5,7 @@ PyCppAD — Python bindings for CppAD Automatic Differentiation library
     <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-green.svg" alt="License"/></a>
     <a href="https://anaconda.org/conda-forge/pycppad"><img src="https://img.shields.io/conda/dn/conda-forge/pycppad.svg" alt="Conda Downloads"/></a>
     <a href="https://anaconda.org/conda-forge/pycppad"><img src="https://img.shields.io/conda/vn/conda-forge/pycppad.svg" alt="Conda Version"/></a>
-    <a href="https://conda.anaconda.org/conda-forge"><img src="https://anaconda.org/conda-forge/pycppad/badges/installer/conda.svg" alt="Anaconda-Server Badge"/></a>
+    <a href="https://badge.fury.io/py/pycppad"><img src="https://badge.fury.io/py/pycppad.svg" alt="PyPI version" height="18"></a>
 </p>
 
 **PyCppAD** is an open source framework which provides bindings for the CppAD Automatic Differentiation([CppAD](https://coin-or.github.io/CppAD/doc/cppad.htm)) C++ library in Python.
@@ -45,7 +45,7 @@ cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=${path_to_your_instal
 make install
 ```
 
-Set up the `path_to_your_installation` and `path_to_your_development_source` based on your personal development environment. 
+Set up the `path_to_your_installation` and `path_to_your_development_source` based on your personal development environment.
 
 Alternatively, in order to compile with [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen) support, add `-DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON` to the cmake command, and follow the build sequence as before:
 
