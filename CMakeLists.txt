@@ -53,19 +53,6 @@ ADD_PROJECT_DEPENDENCY(cppad 20180000.0 REQUIRED PKG_CONFIG_REQUIRES "cppad >= 2
 ADD_PROJECT_DEPENDENCY(Eigen3 REQUIRED PKG_CONFIG_REQUIRES "eigen3 >= 3.0.5")
 ADD_PROJECT_DEPENDENCY(eigenpy 2.6.6 REQUIRED)
 
-# Set default Windows build paths
-IF(WIN32)
-  SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY
-    ${PROJECT_BINARY_DIR}/Bin
-    CACHE PATH "Single directory for all libraries")
-  SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY
-    ${PROJECT_BINARY_DIR}/Bin
-    CACHE PATH "Single directory for all executables")
-  SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
-    ${PROJECT_BINARY_DIR}/Bin
-    CACHE PATH "Sing$le directory for all archives")
-ENDIF(WIN32)
-
 SET(${PROJECT_NAME}_HEADERS
   include/${PROJECT_NAME}/fwd.hpp
   include/${PROJECT_NAME}/ad.hpp
