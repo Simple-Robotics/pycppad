@@ -49,7 +49,7 @@ jobs:
         call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64
     
         :: Create build directory
-        git checkout --recursive https://github.com/coin-or/CppAD
+        git clone --recursive https://github.com/coin-or/CppAD
         cd CppAD
         cmake ^
           -G "Visual Studio 16 2019" -T "ClangCl" -DCMAKE_GENERATOR_PLATFORM=x64 ^
@@ -59,7 +59,7 @@ jobs:
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target install
         cd ../../
 
-        git checkout --recursive https://github.com/joaoleal/CppADCodeGen
+        git clone --recursive https://github.com/joaoleal/CppADCodeGen
         cd CppADCodeGen
         cmake ^
           -G "Visual Studio 16 2019" -T "ClangCl" -DCMAKE_GENERATOR_PLATFORM=x64 ^
