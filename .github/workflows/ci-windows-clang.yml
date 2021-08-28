@@ -59,8 +59,8 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
           ..
         cmake --build ${{github.workspace}}/CppAD/build --config ${{env.BUILD_TYPE}} --target install
-        make install
-        cd ../../
+
+        cd ${{github.workspace}}
 
         git clone --recursive https://github.com/joaoleal/CppADCodeGen
         cd CppADCodeGen
@@ -72,7 +72,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
           ..
         cmake --build ${{github.workspace}}/CppADCodeGen/build --config ${{env.BUILD_TYPE}} --target install
-        cd ../../
+        cd ${{github.workspace}}
 
 
         mkdir build
