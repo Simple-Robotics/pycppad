@@ -59,6 +59,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
           ..
         cmake --build ${{github.workspace}}/CppAD/build --config ${{env.BUILD_TYPE}} --target install
+        cd ${{github.workspace}}/CppAD/build/
         make check
 
         cd ${{github.workspace}}
