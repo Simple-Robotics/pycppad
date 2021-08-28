@@ -6,4 +6,3 @@ dependencies:
   - boost
   - eigenpy
   - python
-  - gtest
