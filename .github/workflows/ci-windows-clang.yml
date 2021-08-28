@@ -49,7 +49,7 @@ jobs:
         call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64
     
         :: Create build directory
-        git clone --recursive https://github.com/coin-or/CppAD
+        git clone --recursive https://github.com/proyan/CppAD
         cd CppAD
         mkdir build
         pushd build
