@@ -51,22 +51,26 @@ jobs:
         :: Create build directory
         git clone --recursive https://github.com/coin-or/CppAD
         cd CppAD
+        mkdir build
+        cd build
         cmake ^
           -G "Visual Studio 16 2019" -T "ClangCl" -DCMAKE_GENERATOR_PLATFORM=x64 ^
           -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
           ..
-        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target install
+        make install
         cd ../../
 
         git clone --recursive https://github.com/joaoleal/CppADCodeGen
         cd CppADCodeGen
+        mkdir build
+        cd build
         cmake ^
           -G "Visual Studio 16 2019" -T "ClangCl" -DCMAKE_GENERATOR_PLATFORM=x64 ^
           -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
           ..
-        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target install
+        make install
         cd ../../
 
 
