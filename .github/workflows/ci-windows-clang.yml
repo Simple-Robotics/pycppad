@@ -58,10 +58,9 @@ jobs:
           -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
           ..
-        cmake --build ${{github.workspace}}/CppAD/build --config ${{env.BUILD_TYPE}}
+        cmake --build ${{github.workspace}}/CppAD/build --config ${{env.BUILD_TYPE}} --target check install
         cd ${{github.workspace}}/CppAD/build/
-        make check
-        make install
+
         cd ${{github.workspace}}
 
         git clone --recursive https://github.com/joaoleal/CppADCodeGen
