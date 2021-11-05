@@ -3,6 +3,8 @@ PyCppAD — Python bindings for CppAD Automatic Differentiation library
 
 <p align="center">
     <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-green.svg" alt="License"/></a>
+    <a href="https://gitlab.laas.fr/Simple-Robotics/pycppad/commits/master"><img src="https://gitlab.laas.fr/Simple-Robotics/pycppad/badges/master/pipeline.svg" alt="Pipeline status" /></a>
+    <a href="http://projects.laas.fr/gepetto/doc/Simple-Robotics/pycppad/master/coverage/"><img src="https://gitlab.laas.fr/Simple-Robotics/pycppad/badges/master/coverage.svg?job=doc-coverage" alt="Coverage report" /></a>
     <a href="https://anaconda.org/conda-forge/pycppad"><img src="https://img.shields.io/conda/dn/conda-forge/pycppad.svg" alt="Conda Downloads"/></a>
     <a href="https://anaconda.org/conda-forge/pycppad"><img src="https://img.shields.io/conda/vn/conda-forge/pycppad.svg" alt="Conda Version"/></a>
     <a href="https://badge.fury.io/py/pycppad"><img src="https://badge.fury.io/py/pycppad.svg" alt="PyPI version"></a>
