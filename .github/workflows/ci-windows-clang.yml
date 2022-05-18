@@ -48,6 +48,35 @@ jobs:
 
         call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64
 
+        :: Install CppAD
+        git clone --recursive https://github.com/jcarpent/CppAD
+        cd CppAD
+        git checkout topic/windows
+        mkdir build
+        pushd build
+        cmake ^
+          -G "Visual Studio 16 2019" -T "ClangCl" -DCMAKE_GENERATOR_PLATFORM=x64 ^
+          -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
+          ..
+        cmake --build ${{github.workspace}}/CppAD/build --config ${{env.BUILD_TYPE}} --target check install
+        cd ${{github.workspace}}/CppAD/build/
+
+        cd ${{github.workspace}}
+
+        :: Install CppADCodeGen
+        git clone --recursive https://github.com/joaoleal/CppADCodeGen
+        cd CppADCodeGen
+        mkdir build
+        pushd build
+        cmake ^
+          -G "Visual Studio 16 2019" -T "ClangCl" -DCMAKE_GENERATOR_PLATFORM=x64 ^
+          -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
+          -DGOOGLETEST_GIT=ON ^
+          ..
+        cmake --build ${{github.workspace}}/CppADCodeGen/build --config ${{env.BUILD_TYPE}} --target install
+
         cd ${{github.workspace}}
 
         mkdir build
