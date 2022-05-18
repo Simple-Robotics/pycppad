@@ -2,11 +2,11 @@ name: PyCppAD CI for Windows - Clang
 on:
   pull_request:
   push:
-      
+
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -35,7 +35,7 @@ jobs:
     - name: Install cmake and update conda
       run: |
         conda install cmake -c main
-    - name: Build CppADCodeGen, CppAD, PyCppAD
+    - name: Build PyCppAD
       shell: cmd /C CALL {0}
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
@@ -47,39 +47,11 @@ jobs:
         set PATH=%PATH:C:\hostedtoolcache\windows\Boost\1.72.0;=%
 
         call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64
-    
-        :: Create build directory
-        git clone --recursive https://github.com/proyan/CppAD
-        cd CppAD
-        mkdir build
-        pushd build
-        cmake ^
-          -G "Visual Studio 16 2019" -T "ClangCl" -DCMAKE_GENERATOR_PLATFORM=x64 ^
-          -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
-          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
-          ..
-        cmake --build ${{github.workspace}}/CppAD/build --config ${{env.BUILD_TYPE}} --target check install
-        cd ${{github.workspace}}/CppAD/build/
 
         cd ${{github.workspace}}
 
-        git clone --recursive https://github.com/joaoleal/CppADCodeGen
-        cd CppADCodeGen
         mkdir build
         pushd build
-        cmake ^
-          -G "Visual Studio 16 2019" -T "ClangCl" -DCMAKE_GENERATOR_PLATFORM=x64 ^
-          -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
-          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ^
-          -DGOOGLETEST_GIT=ON ^
-          ..
-        cmake --build ${{github.workspace}}/CppADCodeGen/build --config ${{env.BUILD_TYPE}} --target install
-        cd ${{github.workspace}}
-
-
-        mkdir build
-        pushd build
-
 
         :: Configure
         cmake ^
