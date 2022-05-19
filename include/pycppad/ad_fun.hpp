@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 INRIA
+ * Copyright 2021-2022 INRIA
  */
 
 #ifndef __pycppad_ad_fun_hpp__
@@ -68,9 +68,11 @@ namespace pycppad
       x = x_; y = y_;
     }
     
-    static ADFun* constructor(const ADVector & x, const ADVector & y)
+    static ADFun* constructor(RefADVector x, RefADVector y)
     {
-      ADFun * f = new ADFun(x,y);
+      ADVector x_(x),y_(y);
+      ADFun * f = new ADFun(x_,y_);
+      x = x_; y = y_;
       return f;
     }
 
