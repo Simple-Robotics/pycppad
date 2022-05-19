@@ -34,6 +34,7 @@ jobs:
     - name: Install cmake and update conda
       run: |
         conda install cmake -c main
+        conda install cppadcodegen -c conda-forge
 
     - name: Build PyCppAD
       shell: cmd /C CALL {0}
