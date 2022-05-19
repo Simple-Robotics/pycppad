@@ -27,11 +27,8 @@ namespace pycppad
                             const bool record_compare_)
     {
       ADVector x_(x), dynamic(0);
-      size_t abort_op_index = abort_op_index_;
-      bool record_compare = record_compare_;
-      ::CppAD::Independent(x_, abort_op_index, record_compare, dynamic);
+      ::CppAD::Independent(x_, abort_op_index_, record_compare_, dynamic);
       x = x_;
-      return;
     }
 
     static void expose(const std::string & func_name = "Independent")
