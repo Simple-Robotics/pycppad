@@ -27,31 +27,37 @@ namespace pycppad
       typedef Eigen::Matrix<AD,Eigen::Dynamic,1> VectorAD;
       typedef Eigen::Matrix<ADCG,1,Eigen::Dynamic> RowVectorADCG;
       typedef Eigen::Matrix<CG,Eigen::Dynamic,1> VectorCG;
-      typedef Eigen::Matrix<CG,1,Eigen::Dynamic> RowVectorCG;      
+      typedef Eigen::Matrix<CG,1,Eigen::Dynamic> RowVectorCG;
+      typedef Eigen::Ref<VectorCG> RefVectorCG;
+      typedef Eigen::Ref<RowVectorCG> RefRowVectorCG;
       typedef ::CppAD::cg::CodeHandler<Scalar> CodeHandler;
       typedef ::CppAD::cg::LanguageC<Scalar> LanguageC;
       typedef ::CppAD::cg::LangCDefaultVariableNameGenerator<Scalar> LangCDefaultVariableNameGenerator;
 
       
     protected:
-      template<typename VectorType>
-      static void makeVariables(CodeHandler& self, const VectorType& x)
+
+      template<typename Vector>
+      static void makeVariables(CodeHandler& self, Eigen::Ref<Vector> x)
       {
-        VectorType& x_= const_cast<VectorType&>(x);
-        self.makeVariables(x_);
+        Vector x_(x);
+        ::CppAD::cg::ArrayView<typename Vector::Scalar> independent_av(x_.data(), x_.size());
+        self.makeVariables(independent_av);
+        x = x_;
         return;
       }
 
-      template<typename VectorType, typename LangType, typename NameGenType>
+      template<typename LangType, typename NameGenType>
       static std::string generateCode(CodeHandler& self,
                                       LangType& lang,
-                                      const VectorType& dependent,
+                                      RefVectorCG dependent,
                                       NameGenType& nameGen,
                                       const std::string& jobName)
       {
         std::ostringstream oss;
-        VectorType& dependent_= const_cast<VectorType&>(dependent);
-        ::CppAD::cg::ArrayView<typename VectorType::Scalar> dependent_av(dependent_.data(), dependent_.size());
+        VectorCG dependent_(dependent);
+        ::CppAD::cg::ArrayView<CG> dependent_av(dependent_.data(), dependent_.size());
+        dependent = dependent_;
         self.generateCode(oss, lang, dependent_av, nameGen, jobName);
         return oss.str();
       }
@@ -86,19 +92,7 @@ namespace pycppad
                "Parameters:\n"
                "\tvariables: the vector of variables that will become independent variables")
           .def("makeVariables",
-               &CodeHandler::template makeVariables<RowVectorADCG>,
-               bp::args("self", "variables"),
-               "Marks the provided variables as being independent variables.\n"
-               "Parameters:\n"
-               "\tvariables: the vector of variables that will become independent variables")
-          .def("makeVariables",
-               &CodeHandler::template makeVariables<VectorCG>,
-               bp::args("self", "variables"),
-               "Marks the provided variables as being independent variables.\n"
-               "Parameters:\n"
-               "\tvariables: the vector of variables that will become independent variables")
-          .def("makeVariables",
-               &CodeHandler::template makeVariables<RowVectorCG>,
+               &makeVariables<VectorADCG>,
                bp::args("self", "variables"),
                "Marks the provided variables as being independent variables.\n"
                "Parameters:\n"
@@ -122,18 +116,7 @@ namespace pycppad
                "\tid:  the atomic function ID.")
           //.def("getExternalFuncMaxForwardOrder", &CodeHandler::getExternalFuncMaxForwardOrder, bp::arg("self"))
           //.def("getExternalFuncMaxReverseOrder", &CodeHandler::getExternalFuncMaxReverseOrder, bp::arg("self"))
-          .def("generateCode", &generateCode<VectorCG, LanguageC, LangCDefaultVariableNameGenerator>,
-               (bp::arg("self"), bp::arg("lang"), bp::arg("dependent"), bp::arg("nameGen"), bp::arg("jobName")="source"),
-               "Creates the source code from the operations registered so far.\n"
-               "Parameters:\n"
-               "\tlang: The targeted language.\n"
-               "\tdependent: The dependent variables for which the source code\n"
-               "             should be generated. By defining this vector the \n"
-               "             number of operations in the source code can be\n"
-               "             reduced and thus providing a more optimized code.\n"
-               "\tnameGen: Provides the rules for variable name creation. data related to the model\n"
-               "\tjobName: Name of this job.")
-          .def("generateCode", &generateCode<RowVectorCG, LanguageC, LangCDefaultVariableNameGenerator>,
+          .def("generateCode", &generateCode<LanguageC, LangCDefaultVariableNameGenerator>,
                (bp::arg("self"), bp::arg("lang"), bp::arg("dependent"), bp::arg("nameGen"), bp::arg("jobName")="source"),
                "Creates the source code from the operations registered so far.\n"
                "Parameters:\n"
