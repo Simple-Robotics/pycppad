@@ -37,7 +37,8 @@ namespace pycppad
       
     protected:
 
-      static void makeVariables(CodeHandler& self, RefVectorCG x)
+      template<typename VectorCG>
+      static void makeVariables(CodeHandler& self, Eigen::Ref<VectorCG> x)
       {
         VectorCG x_(x);
         ::CppAD::cg::ArrayView<CG> independent_av(x_.data(), x_.size());
@@ -85,25 +86,13 @@ namespace pycppad
                "\tvariable: the variables that will become independent variable"
                )
           .def("makeVariables",
-               &makeVariables,
+               &makeVariables<VectorCG>,
                bp::args("self", "variables"),
                "Marks the provided variables as being independent variables.\n"
                "Parameters:\n"
                "\tvariables: the vector of variables that will become independent variables")
           .def("makeVariables",
                &CodeHandler::template makeVariables<RowVectorADCG>,
-               bp::args("self", "variables"),
-               "Marks the provided variables as being independent variables.\n"
-               "Parameters:\n"
-               "\tvariables: the vector of variables that will become independent variables")
-          .def("makeVariables",
-               &CodeHandler::template makeVariables<VectorCG>,
-               bp::args("self", "variables"),
-               "Marks the provided variables as being independent variables.\n"
-               "Parameters:\n"
-               "\tvariables: the vector of variables that will become independent variables")
-          .def("makeVariables",
-               &CodeHandler::template makeVariables<RowVectorCG>,
                bp::args("self", "variables"),
                "Marks the provided variables as being independent variables.\n"
                "Parameters:\n"
