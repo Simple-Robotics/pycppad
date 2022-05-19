@@ -92,7 +92,7 @@ namespace pycppad
                "Parameters:\n"
                "\tvariables: the vector of variables that will become independent variables")
           .def("makeVariables",
-               &CodeHandler::template makeVariables<RowVectorADCG>,
+               &makeVariables<VectorADCG>,
                bp::args("self", "variables"),
                "Marks the provided variables as being independent variables.\n"
                "Parameters:\n"
