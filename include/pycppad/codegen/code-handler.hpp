@@ -37,11 +37,11 @@ namespace pycppad
       
     protected:
 
-      template<typename VectorCG>
-      static void makeVariables(CodeHandler& self, Eigen::Ref<VectorCG> x)
+      template<typename Vector>
+      static void makeVariables(CodeHandler& self, Eigen::Ref<Vector> x)
       {
-        VectorCG x_(x);
-        ::CppAD::cg::ArrayView<CG> independent_av(x_.data(), x_.size());
+        Vector x_(x);
+        ::CppAD::cg::ArrayView<typename Vector::Scalar> independent_av(x_.data(), x_.size());
         self.makeVariables(independent_av);
         x = x_;
         return;
