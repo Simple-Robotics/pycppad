@@ -11,7 +11,7 @@ PyCppAD — Python bindings for CppAD Automatic Differentiation library
 </p>
 
 **PyCppAD** is an open source framework which provides bindings for the CppAD Automatic Differentiation([CppAD](https://coin-or.github.io/CppAD/doc/cppad.htm)) C++ library in Python.
-**PyCppAD** also includes support for the CppADCodeGen ([CppADCodeGen](https://github.com/joaoleal/CppADCodeGen)), C++ library, which exploits CppAD functionality to perform code generation.
+**PyCppAD** also includes support for the CppADCodeGen ([CppADCodeGen](https://github.com/joaoleal/CppADCodeGen)) library, which exploits CppAD functionality to perform code generation.
 
 ## Installing PyCppAD
 
@@ -61,6 +61,13 @@ Alternatively, in order to compile with [CppADCodeGen](https://github.com/joaole
 ```
 cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=${path_to_your_installation} -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
 ```
+
+## Credits
+
+The following people have been involved in the development of **PyCppAD** and are warmly thanked for their contributions:
+
+-   [Rohan Budhiraja](https://scholar.google.com/citations?user=NW9Io9AAAAAJ) (Inria): main developper
+-   [Justin Carpentier](https://jcarpent.github.io) (Inria): main developer and manager of the project
 
 ## Acknowledgments
 
