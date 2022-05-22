@@ -12,6 +12,28 @@
 
 #include "pycppad/cast.hpp"
 
+namespace eigenpy {
+
+template <typename Scalar, typename To>
+struct cast<::CppAD::cg::CG<Scalar>, To>
+{
+  typedef ::CppAD::cg::CG<Scalar> From;
+  static To run(const From & from) {
+    return ::pycppad::internal::Cast<From, To>::run(from);
+  }
+};
+
+template <typename From, typename Scalar>
+struct cast<From,::CppAD::cg::CG<Scalar>>
+{
+  typedef ::CppAD::cg::CG<Scalar> To;
+  static To run(const From & from) {
+    return To(static_cast<Scalar>(from));
+  }
+};
+
+} // namespace eigenpy
+
 namespace pycppad
 {
   namespace internal
