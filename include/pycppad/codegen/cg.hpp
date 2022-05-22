@@ -32,6 +32,26 @@ struct cast<From,::CppAD::cg::CG<Scalar>>
   }
 };
 
+namespace internal {
+
+template <typename Scalar>
+struct getitem<::CppAD::cg::CG<Scalar>> {
+
+  typedef ::CppAD::cg::CG<Scalar> CG;
+  
+  static PyObject* run(void* data, void* /* arr */) {
+    CG & cg = *static_cast<CG*>(data);
+    
+    if(!cg.isValueDefined()) // not initialized
+      cg.setValue(static_cast<Scalar>(0));
+    
+    bp::object m(cg);
+    Py_INCREF(m.ptr());
+    return m.ptr();
+  }
+};
+
+} // namespace internal
 } // namespace eigenpy
 
 namespace pycppad
