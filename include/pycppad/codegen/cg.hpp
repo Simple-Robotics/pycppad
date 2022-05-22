@@ -148,6 +148,15 @@ namespace pycppad
         
         eigenpy::registerNewType<CG>();
         eigenpy::registerCommonUfunc<CG>();
+        
+        eigenpy::registerCast<CG,double>(false);
+        eigenpy::registerCast<double,CG>(true);
+        eigenpy::registerCast<CG,float>(false);
+        eigenpy::registerCast<float,CG>(true);
+        eigenpy::registerCast<CG,long>(false);
+        eigenpy::registerCast<long,CG>(true);
+        eigenpy::registerCast<CG,int>(false);
+        eigenpy::registerCast<int,CG>(true);
       }
     };
 
