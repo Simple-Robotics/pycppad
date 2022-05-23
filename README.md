@@ -66,7 +66,7 @@ cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=${path_to_your_instal
 
 The following people have been involved in the development of **PyCppAD** and are warmly thanked for their contributions:
 
--   [Rohan Budhiraja](https://scholar.google.com/citations?user=NW9Io9AAAAAJ) (Inria): main developper
+-   [Rohan Budhiraja](https://scholar.google.com/citations?user=NW9Io9AAAAAJ) (Inria): main developer
 -   [Justin Carpentier](https://jcarpent.github.io) (Inria): main developer and manager of the project
 
 ## Acknowledgments
