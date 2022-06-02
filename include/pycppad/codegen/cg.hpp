@@ -12,6 +12,48 @@
 
 #include "pycppad/cast.hpp"
 
+namespace eigenpy {
+
+template <typename Scalar, typename To>
+struct cast<::CppAD::cg::CG<Scalar>, To>
+{
+  typedef ::CppAD::cg::CG<Scalar> From;
+  static To run(const From & from) {
+    return ::pycppad::internal::Cast<From, To>::run(from);
+  }
+};
+
+template <typename From, typename Scalar>
+struct cast<From,::CppAD::cg::CG<Scalar>>
+{
+  typedef ::CppAD::cg::CG<Scalar> To;
+  static To run(const From & from) {
+    return To(static_cast<Scalar>(from));
+  }
+};
+
+namespace internal {
+
+template <typename Scalar>
+struct getitem<::CppAD::cg::CG<Scalar>> {
+
+  typedef ::CppAD::cg::CG<Scalar> CG;
+  
+  static PyObject* run(void* data, void* /* arr */) {
+    CG & cg = *static_cast<CG*>(data);
+    
+    if(!cg.isValueDefined()) // not initialized
+      cg.setValue(static_cast<Scalar>(0));
+    
+    bp::object m(cg);
+    Py_INCREF(m.ptr());
+    return m.ptr();
+  }
+};
+
+} // namespace internal
+} // namespace eigenpy
+
 namespace pycppad
 {
   namespace internal
@@ -126,6 +168,15 @@ namespace pycppad
         
         eigenpy::registerNewType<CG>();
         eigenpy::registerCommonUfunc<CG>();
+        
+        eigenpy::registerCast<CG,double>(false);
+        eigenpy::registerCast<double,CG>(true);
+        eigenpy::registerCast<CG,float>(false);
+        eigenpy::registerCast<float,CG>(true);
+        eigenpy::registerCast<CG,long>(false);
+        eigenpy::registerCast<long,CG>(true);
+        eigenpy::registerCast<CG,int>(false);
+        eigenpy::registerCast<int,CG>(true);
       }
     };
 
