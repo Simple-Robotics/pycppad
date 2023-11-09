@@ -1,8 +1,8 @@
 #
-# Copyright (c) 2021-2022 INRIA
+# Copyright (c) 2021-2023 INRIA
 #
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
 SET(PROJECT_NAME pycppad)
 SET(PROJECT_DESCRIPTION "Python bindings for CppAD and CppADCodeGen using Boost.Python")
