@@ -22,42 +22,39 @@ jobs:
         os: ["ubuntu-latest", "macos-latest"]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
 
-    - name: Checkout submodules
-      run: |
-        git submodule update --init
-
-    - uses: conda-incubator/setup-miniconda@v2
+    - uses: conda-incubator/setup-miniconda@v3
       with:
         activate-environment: pycppad
         auto-update-conda: true
         environment-file: .github/workflows/conda/conda-env.yml
         python-version: 3.8
-
-    - name: Install cmake and update conda
-      shell: bash -l {0}
-      run: |
-        conda activate pycppad
-        conda install cmake -c main
+        auto-activate-base: false
 
     - name: Build PyCppAD
-      shell: bash -l {0}
+      shell: bash -el {0}
       run: |
-        conda activate pycppad
+        conda list
         echo $CONDA_PREFIX
         
         mkdir build
         cd build
 
-        cmake .. -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DPYTHON_EXECUTABLE=$(which python3) -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
-        make
-        export CTEST_OUTPUT_ON_FAILURE=1
-        make test
-        make install
+        cmake .. \
+          -G "Ninja" \
+          -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} \
+          -DPYTHON_EXECUTABLE=$(which python3) \
+          -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
+        ninja -j1
+        ctest --output-on-failure -C Release -V
+        ninja install
 
     - name: Uninstall PyCppAD
-      shell: bash -l {0}
+      shell: bash -el {0}
       run: |
         cd build
-        make uninstall
+        ninja uninstall
