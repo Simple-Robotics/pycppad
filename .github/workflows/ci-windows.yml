@@ -1,0 +1,70 @@
+name: PyCppAD CI for Windows
+on:
+  pull_request:
+  push:
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [windows-2019]
+        compiler:
+          - cmd: cl
+            cppad_codegen: OFF
+          - cmd: clang-cl
+            cppad_codegen: ON
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - uses: conda-incubator/setup-miniconda@v3
+      with:
+        activate-environment: pycppad
+        auto-update-conda: true
+        environment-file: .github/workflows/conda/conda-env.yml
+        python-version: 3.8
+        auto-activate-base: false
+
+    - name: Build PyCppAD
+      shell: cmd /C CALL {0}
+      run: |
+        :: Set compiler to use.
+        :: This must be done here and not in env since
+        :: cxx-compiler activation script set this variable
+        :: and is called before.
+        set CC=${{ matrix.compiler.cmd }}
+        set CXX=${{ matrix.compiler.cmd }}
+
+        :: Create build directory
+        mkdir build
+        pushd build
+
+        :: Configure
+        cmake ^
+          -G "Ninja" ^
+          -DCMAKE_BUILD_TYPE=Release ^
+          -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ^
+          -DPYTHON_SITELIB=%CONDA_PREFIX%\Lib\site-packages ^
+          -DPYTHON_EXECUTABLE=%CONDA_PREFIX%\python.exe ^
+          -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=${{ matrix.compiler.cppad_codegen }} ^
+          ..
+
+        :: Build
+        ninja -j1
+
+        :: Testing
+        ctest --output-on-failure -C Release -V
+
+        :: Test Python import
+        ninja install
+        cd ..
+        python -c "import pycppad"

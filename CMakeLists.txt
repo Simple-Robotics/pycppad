@@ -67,6 +67,8 @@ SET(${PROJECT_NAME}_HEADERS
 
 SET(${PROJECT_NAME}_SOURCES
   src/cppad.cpp
+  src/expose-type-double.cpp
+  src/expose-type-double-row-major.cpp
   )
 
 IF(BUILD_WITH_CPPAD_CODEGEN_BINDINGS)

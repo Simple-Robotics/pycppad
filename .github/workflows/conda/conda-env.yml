@@ -1,10 +1,14 @@
 name: pycppad
 channels:
   - conda-forge
-  - nodefaults
 dependencies:
   - boost
   - eigenpy
   - python
   - cppad
   - cppadcodegen
+  - ninja
+  - cmake
+  - pkg-config
+  - ninja
+  - cxx-compiler
