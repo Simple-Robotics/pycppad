@@ -10,8 +10,8 @@ PyCppAD — Python bindings for CppAD Automatic Differentiation library
     <a href="https://badge.fury.io/py/pycppad"><img src="https://badge.fury.io/py/pycppad.svg" alt="PyPI version"></a>
 </p>
 
-**PyCppAD** is an open source framework which provides bindings for the CppAD Automatic Differentiation([CppAD](https://coin-or.github.io/CppAD/doc/cppad.htm)) C++ library in Python.
-**PyCppAD** also includes support for the CppADCodeGen ([CppADCodeGen](https://github.com/joaoleal/CppADCodeGen)) library, which exploits CppAD functionality to perform code generation.
+**PyCppAD** is an open-source framework that provides bindings for the CppAD Automatic Differentiation([CppAD](https://coin-or.github.io/CppAD/doc/cppad.htm)) C++ library in Python.
+**PyCppAD** also includes support for the CppADCodeGen ([CppADCodeGen](https://github.com/joaoleal/CppADCodeGen)) library, which exploits CppAD functionality to do code generation.
 
 ## Installing PyCppAD
 
@@ -33,7 +33,7 @@ As simple as that:
 
 #### Dependencies
 
-PyCppAD dependes on the following dependencies:
+PyCppAD depends on the following dependencies:
 * [Boost.Python](http://boostorg.github.io/python/doc/html/index.html)
 * [Eigen3](https://eigen.tuxfamily.org)
 * [EigenPy](https://github.com/stack-of-tasks/eigenpy)
@@ -56,7 +56,7 @@ make install
 
 Set up the `path_to_your_installation` and `path_to_your_development_source` based on your personal development environment.
 
-Alternatively, in order to compile with [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen) support, add `-DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON` to the cmake command, and follow the build sequence as before:
+Alternatively, to compile with [CppADCodeGen](https://github.com/joaoleal/CppADCodeGen) support, add `-DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON` to the cmake command, and follow the build sequence as before:
 
 ```
 cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=${path_to_your_installation} -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
@@ -68,6 +68,7 @@ The following people have been involved in the development of **PyCppAD** and ar
 
 -   [Rohan Budhiraja](https://scholar.google.com/citations?user=NW9Io9AAAAAJ) (Inria): main developer
 -   [Justin Carpentier](https://jcarpent.github.io) (Inria): main developer and manager of the project
+-   [Joris Vaillant](https://github.com/jorisv) (Inria): core developer and manager of the project
 
 ## Acknowledgments
 
