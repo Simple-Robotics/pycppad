@@ -9,7 +9,10 @@ SET(PROJECT_DESCRIPTION "Python bindings for CppAD and CppADCodeGen using Boost.
 SET(PROJECT_URL "https://github.com/simple-robotics/pycppad")
 SET(PROJECT_CUSTOM_HEADER_EXTENSION "hpp")
 SET(PROJECT_USE_CMAKE_EXPORT TRUE)
-set(PROJECT_AUTO_RUN_FINALIZE FALSE)
+# To enable jrl-cmakemodules compatibility with workspace we must define the two
+# following lines
+SET(PROJECT_AUTO_RUN_FINALIZE FALSE)
+SET(PROJECT_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})
 
 
 # Project configuration
@@ -18,7 +21,7 @@ SET(CMAKE_VERBOSE_MAKEFILE TRUE)
 SET(CXX_DISABLE_WERROR TRUE)
 
 # Check if the submodule cmake have been initialized
-set(JRL_CMAKE_MODULES "${CMAKE_CURRENT_LIST_DIR}/cmake")
+SET(JRL_CMAKE_MODULES "${CMAKE_CURRENT_LIST_DIR}/cmake")
 IF(NOT EXISTS "${JRL_CMAKE_MODULES}/base.cmake")
   MESSAGE(FATAL_ERROR "\nPlease run the following command first:\ngit submodule update --init\n")
 ENDIF()
