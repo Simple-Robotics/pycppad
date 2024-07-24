@@ -9,6 +9,10 @@ SET(PROJECT_DESCRIPTION "Python bindings for CppAD and CppADCodeGen using Boost.
 SET(PROJECT_URL "https://github.com/simple-robotics/pycppad")
 SET(PROJECT_CUSTOM_HEADER_EXTENSION "hpp")
 SET(PROJECT_USE_CMAKE_EXPORT TRUE)
+# To enable jrl-cmakemodules compatibility with workspace we must define the two
+# following lines
+SET(PROJECT_AUTO_RUN_FINALIZE FALSE)
+SET(PROJECT_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})
 
 
 # Project configuration
@@ -17,15 +21,44 @@ SET(CMAKE_VERBOSE_MAKEFILE TRUE)
 SET(CXX_DISABLE_WERROR TRUE)
 
 # Check if the submodule cmake have been initialized
-IF(NOT EXISTS "${CMAKE_SOURCE_DIR}/cmake/base.cmake")
+SET(JRL_CMAKE_MODULES "${CMAKE_CURRENT_LIST_DIR}/cmake")
+IF(NOT EXISTS "${JRL_CMAKE_MODULES}/base.cmake")
   MESSAGE(FATAL_ERROR "\nPlease run the following command first:\ngit submodule update --init\n")
 ENDIF()
 
-INCLUDE(cmake/base.cmake)
-INCLUDE(cmake/boost.cmake)
-INCLUDE(cmake/ide.cmake)
+if(EXISTS "${JRL_CMAKE_MODULES}/base.cmake")
+  message(STATUS "JRL cmakemodules found in 'cmake/' git submodule")
+else()
+  find_package(jrl-cmakemodules QUIET CONFIG)
+  if(jrl-cmakemodules_FOUND)
+    get_property(
+      JRL_CMAKE_MODULES
+      TARGET jrl-cmakemodules::jrl-cmakemodules
+      PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+    message(STATUS "JRL cmakemodules found on system at ${JRL_CMAKE_MODULES}")
+  elseif(${CMAKE_VERSION} VERSION_LESS "3.14.0")
+    message(
+      FATAL_ERROR
+        "\nCan't find jrl-cmakemodules. Please either:\n"
+        "  - use git submodule: 'git submodule update --init'\n"
+        "  - or install https://github.com/jrl-umi3218/jrl-cmakemodules\n"
+        "  - or upgrade your CMake version to >= 3.14 to allow automatic fetching\n")
+  else()
+    message(STATUS "JRL cmakemodules not found. Let's fetch it.")
+    include(FetchContent)
+    FetchContent_Declare("jrl-cmakemodules"
+                         GIT_REPOSITORY "https://github.com/jrl-umi3218/jrl-cmakemodules.git")
+    FetchContent_MakeAvailable("jrl-cmakemodules")
+    FetchContent_GetProperties("jrl-cmakemodules" SOURCE_DIR JRL_CMAKE_MODULES)
+  endif()
+endif()
 
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/find-external/CppAD/" ${CMAKE_MODULE_PATH})
+INCLUDE(${JRL_CMAKE_MODULES}/base.cmake)
+INCLUDE(${JRL_CMAKE_MODULES}/boost.cmake)
+INCLUDE(${JRL_CMAKE_MODULES}/ide.cmake)
+INCLUDE(${JRL_CMAKE_MODULES}/python.cmake)
+
+SET(CMAKE_MODULE_PATH "${JRL_CMAKE_MODULES}/find-external/CppAD/" ${CMAKE_MODULE_PATH})
 
 # Project definition
 COMPUTE_PROJECT_ARGS(PROJECT_ARGS LANGUAGES CXX)
@@ -47,6 +80,8 @@ ENDIF(BUILD_WITH_CPPAD_CODEGEN_BINDINGS)
 
 ADD_PROJECT_DEPENDENCY(cppad 20180000.0 REQUIRED PKG_CONFIG_REQUIRES "cppad >= 20180000.0")
 ADD_PROJECT_DEPENDENCY(Eigen3 REQUIRED PKG_CONFIG_REQUIRES "eigen3 >= 3.0.5")
+SET(PYTHON_COMPONENTS Interpreter Development NumPy)
+FINDPYTHON(REQUIRED)
 ADD_PROJECT_DEPENDENCY(eigenpy 2.7.14 REQUIRED)
 
 SET(${PROJECT_NAME}_HEADERS
@@ -140,3 +175,5 @@ PKG_CONFIG_APPEND_BOOST_LIBS(${BOOST_COMPONENTS})
 
 # Install catkin package.xml
 INSTALL(FILES package.xml DESTINATION share/${PROJECT_NAME})
+
+setup_project_finalize()
