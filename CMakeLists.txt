@@ -53,6 +53,11 @@ else()
   endif()
 endif()
 
+# Use BoostConfig module distributed by boost library instead of using FindBoost module distributed
+# by CMake
+if(POLICY CMP0167)
+  cmake_policy(SET CMP0167 NEW)
+endif()
 INCLUDE(${JRL_CMAKE_MODULES}/base.cmake)
 INCLUDE(${JRL_CMAKE_MODULES}/boost.cmake)
 INCLUDE(${JRL_CMAKE_MODULES}/ide.cmake)
