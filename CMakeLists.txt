@@ -2,7 +2,7 @@
 # Copyright (c) 2021-2023 INRIA
 #
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.22)
 
 SET(PROJECT_NAME pycppad)
 SET(PROJECT_DESCRIPTION "Python bindings for CppAD and CppADCodeGen using Boost.Python")
@@ -21,11 +21,6 @@ SET(CMAKE_VERBOSE_MAKEFILE TRUE)
 SET(CXX_DISABLE_WERROR TRUE)
 
 # Check if the submodule cmake have been initialized
-SET(JRL_CMAKE_MODULES "${CMAKE_CURRENT_LIST_DIR}/cmake")
-IF(NOT EXISTS "${JRL_CMAKE_MODULES}/base.cmake")
-  MESSAGE(FATAL_ERROR "\nPlease run the following command first:\ngit submodule update --init\n")
-ENDIF()
-
 if(EXISTS "${JRL_CMAKE_MODULES}/base.cmake")
   message(STATUS "JRL cmakemodules found in 'cmake/' git submodule")
 else()
@@ -36,13 +31,6 @@ else()
       TARGET jrl-cmakemodules::jrl-cmakemodules
       PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
     message(STATUS "JRL cmakemodules found on system at ${JRL_CMAKE_MODULES}")
-  elseif(${CMAKE_VERSION} VERSION_LESS "3.14.0")
-    message(
-      FATAL_ERROR
-        "\nCan't find jrl-cmakemodules. Please either:\n"
-        "  - use git submodule: 'git submodule update --init'\n"
-        "  - or install https://github.com/jrl-umi3218/jrl-cmakemodules\n"
-        "  - or upgrade your CMake version to >= 3.14 to allow automatic fetching\n")
   else()
     message(STATUS "JRL cmakemodules not found. Let's fetch it.")
     include(FetchContent)
@@ -63,8 +51,6 @@ INCLUDE(${JRL_CMAKE_MODULES}/boost.cmake)
 INCLUDE(${JRL_CMAKE_MODULES}/ide.cmake)
 INCLUDE(${JRL_CMAKE_MODULES}/python.cmake)
 
-SET(CMAKE_MODULE_PATH "${JRL_CMAKE_MODULES}/find-external/CppAD/" ${CMAKE_MODULE_PATH})
-
 # Project definition
 COMPUTE_PROJECT_ARGS(PROJECT_ARGS LANGUAGES CXX)
 PROJECT(${PROJECT_NAME} ${PROJECT_ARGS})
@@ -79,11 +65,11 @@ ADD_PROJECT_DEPENDENCY(Boost REQUIRED)
 EXPORT_BOOST_DEFAULT_OPTIONS()
 
 IF(BUILD_WITH_CPPAD_CODEGEN_BINDINGS)
-  ADD_PROJECT_DEPENDENCY(cppadcg 2.4.1 REQUIRED PKG_CONFIG_REQUIRES "cppadcg >= 2.4.1") # CppADCodeGen 2.4.1 is the first version to check the minimal version of CppAD
+  ADD_PROJECT_DEPENDENCY(cppadcg 2.4.1 REQUIRED PKG_CONFIG_REQUIRES "cppadcg >= 2.4.1" FIND_EXTERNAL "CppAD") # CppADCodeGen 2.4.1 is the first version to check the minimal version of CppAD
   ADD_DEFINITIONS(-DPYCPPAD_WITH_CPPAD_CODEGEN_BINDINGS)
 ENDIF(BUILD_WITH_CPPAD_CODEGEN_BINDINGS)
 
-ADD_PROJECT_DEPENDENCY(cppad 20180000.0 REQUIRED PKG_CONFIG_REQUIRES "cppad >= 20180000.0")
+ADD_PROJECT_DEPENDENCY(cppad 20180000.0 REQUIRED PKG_CONFIG_REQUIRES "cppad >= 20180000.0" FIND_EXTERNAL "CppAD")
 ADD_PROJECT_DEPENDENCY(Eigen3 REQUIRED PKG_CONFIG_REQUIRES "eigen3 >= 3.0.5")
 SET(PYTHON_COMPONENTS Interpreter Development NumPy)
 FINDPYTHON(REQUIRED)
@@ -177,8 +163,5 @@ ADD_SUBDIRECTORY(example)
 PKG_CONFIG_APPEND_LIBS(${PROJECT_NAME})
 PKG_CONFIG_APPEND_CFLAGS("-I${PYTHON_INCLUDE_DIRS}")
 PKG_CONFIG_APPEND_BOOST_LIBS(${BOOST_COMPONENTS})
-
-# Install catkin package.xml
-INSTALL(FILES package.xml DESTINATION share/${PROJECT_NAME})
 
 setup_project_finalize()
