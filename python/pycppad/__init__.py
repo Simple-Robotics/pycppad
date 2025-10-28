@@ -2,9 +2,6 @@
 # Copyright 2021 INRIA
 #
 
-from .pycppad_pywrap import *
-from .pycppad_pywrap import __version__, __raw_version__
-
 # On Windows, if pycppad.dll is not in the same directory than
 # the .pyd, it will not be loaded.
 # We first try to load pycppad, then, if it fail and we are on Windows:
