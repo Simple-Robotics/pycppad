@@ -21,6 +21,7 @@ SET(CMAKE_VERBOSE_MAKEFILE TRUE)
 SET(CXX_DISABLE_WERROR TRUE)
 
 # Check if the submodule cmake have been initialized
+set(JRL_CMAKE_MODULES "${CMAKE_CURRENT_LIST_DIR}/cmake")
 if(EXISTS "${JRL_CMAKE_MODULES}/base.cmake")
   message(STATUS "JRL cmakemodules found in 'cmake/' git submodule")
 else()
