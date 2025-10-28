@@ -28,11 +28,12 @@ jobs:
 
     - uses: conda-incubator/setup-miniconda@v3
       with:
+        miniforge-version: latest
         activate-environment: pycppad
-        auto-update-conda: true
         environment-file: .github/workflows/conda/conda-env.yml
-        python-version: 3.8
+        auto-update-conda: true
         auto-activate-base: false
+        conda-remove-defaults: true
 
     - name: Build PyCppAD
       shell: bash -el {0}
@@ -50,7 +51,7 @@ jobs:
           -DPYTHON_EXECUTABLE=$(which python3) \
           -DBUILD_WITH_CPPAD_CODEGEN_BINDINGS=ON
         ninja -j1
-        ctest --output-on-failure -C Release -V
+        ctest --output-on-failure
         ninja install
 
     - name: Uninstall PyCppAD
