@@ -9,16 +9,19 @@ env:
 
 jobs:
   build:
+    name: build (${{ matrix.os }}, ${{ matrix.compiler.name }}, ${{ matrix.compiler.cppad_codegen }})
     runs-on: ${{ matrix.os }}
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [windows-latest]
         compiler:
-          - cmd: cl
+          - name: cl
+            cmd: cl
             cppad_codegen: OFF
-          - cmd: clang-cl
+          - name: clang-cl
+            cmd: '%CONDA_PREFIX%\\Library\\bin\\clang-cl'
             cppad_codegen: ON
 
     steps:
@@ -28,11 +31,12 @@ jobs:
 
     - uses: conda-incubator/setup-miniconda@v3
       with:
+        miniforge-version: latest
         activate-environment: pycppad
-        auto-update-conda: true
         environment-file: .github/workflows/conda/conda-env.yml
-        python-version: 3.8
+        auto-update-conda: true
         auto-activate-base: false
+        conda-remove-defaults: true
 
     - name: Build PyCppAD
       shell: cmd /C CALL {0}
@@ -62,7 +66,7 @@ jobs:
         ninja -j1
 
         :: Testing
-        ctest --output-on-failure -C Release -V
+        ctest --output-on-failure
 
         :: Test Python import
         ninja install
