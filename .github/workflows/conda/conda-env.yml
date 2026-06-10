@@ -4,6 +4,7 @@ channels:
 dependencies:
   - libboost-devel
   - libboost-python-devel
+  - eigen
   - eigenpy
   - python
   - cppad
